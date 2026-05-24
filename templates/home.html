@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VidaFarma - Dashboard</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="../static/css/home.css">
+
+    <!-- fonte -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- container principal -->
+    <div class="container">
+
+        <!-- sidebar -->
+        <aside class="sidebar">
+
+            <!-- logo -->
+            <div class="sidebar-logo">
+
+                
+
+        </div>
+
+            <!-- menu lateral -->
+            <nav class="menu">
+
+                <a href="#" class="active">
+                    <i class="fa-solid fa-table-columns"></i>
+                    Dashboard
+                </a>
+
+                <a href="produtos.html">
+                    <i class="fa-solid fa-pills"></i>
+                    Produtos
+                </a>
+
+                <a href="estoque.html">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    Estoque Geral
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-layer-group"></i>
+                    Controle de Lotes
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    Movimentações
+                </a>
+
+            </nav>
+
+            <!-- botão sair -->
+            <div class="logout">
+
+                <a href="login.html" target="_blank">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Sair
+                </a>
+
+            </div>
+
+        </aside>
+
+        <!-- conteúdo -->
+        <main class="content">
+
+            <!-- topo -->
+            <header class="topbar">
+
+                <!-- lado esquerdo -->
+                <div class="top-left">
+                   
+
+                    <img src="../static/img/logo.png" alt="Logo">
+
+                </div>
+
+                <!-- lado direito -->
+                <div class="top-right">
+
+                    <!-- infos do usuário -->
+                    <div class="user-info">
+
+                        <strong>George Henrique</strong>
+                        <span>Gerente Geral</span>
+
+                    </div>
+
+                    <!-- bolinha do usuário -->
+                    <div class="user-photo">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- conteúdo interno -->
+            <div class="dashboard">
+
+                <!-- título -->
+                <div class="page-title">
+
+                    <h1>Dashboard</h1>
+
+                    <p>
+                        Visão geral do estoque e alertas importantes
+                    </p>
+
+                </div>
+
+                <!-- cards -->
+                <div class="cards">
+
+                    <!-- card -->
+                    <div class="card">
+
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-capsules"></i>
+                        </div>
+
+                        <h3>Produtos Cadastrados</h3>
+
+                        <h2>350</h2>
+
+                        <p>Total de produtos ativos</p>
+
+                        <a href="#">+ Ver todos</a>
+
+                    </div>
+
+                    <!-- card -->
+                    <div class="card">
+
+                        <div class="card-icon green">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+
+                        <h3>Lotes Ativos</h3>
+
+                        <h2>2.450</h2>
+
+                        <p>Lotes em estoque</p>
+
+                        <a href="#">+ Ver todos</a>
+
+                    </div>
+
+                    <!-- card -->
+                    <div class="card">
+
+                        <div class="card-icon yellow">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+
+                        <h3>Estoque Baixo</h3>
+
+                        <h2>22</h2>
+
+                        <p>Produtos abaixo do mínimo</p>
+
+                        <a href="#">+ Ver todos</a>
+
+                    </div>
+
+                    <!-- card -->
+                    <div class="card">
+
+                        <div class="card-icon red">
+                            <i class="fa-regular fa-calendar-xmark"></i>
+                        </div>
+
+                        <h3>Vencem em 30 dias</h3>
+
+                        <h2>15</h2>
+
+                        <p>Lotes próximos do vencimento</p>
+
+                        <a href="#">+ Ver todos</a>
+
+                    </div>
+
+                </div>
+
+                <!-- tabela -->
+                <div class="table-section">
+
+                    <!-- topo da tabela -->
+                    <div class="table-header">
+
+                        <h2>Últimas Movimentações</h2>
+
+                        <a href="#">Ver todas</a>
+
+                    </div>
+
+                    <!-- tabela -->
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Data/Hora</th>
+                                <th>Tipo</th>
+                                <th>Produto</th>
+                                <th>Lote</th>
+                                <th>Qtd.</th>
+                                <th>Usuário</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>16/05/2026 10:23</td>
+
+                                <td class="entrada">
+                                    ENTRADA
+                                </td>
+
+                                <td>
+                                    DIPIRONA MONOIDRATADA 1G 500CMP
+                                </td>
+
+                                <td>568900</td>
+
+                                <td>200</td>
+
+                                <td>George Henrique</td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>16/05/2026 09:55</td>
+
+                                <td class="saida">
+                                    SAÍDA
+                                </td>
+
+                                <td>
+                                    AMOXICILINA 500MG 300COMP
+                                </td>
+
+                                <td>38974</td>
+
+                                <td>50</td>
+
+                                <td>Ana Paula</td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>15/05/2026 17:42</td>
+
+                                <td class="ajuste">
+                                    AJUSTE
+                                </td>
+
+                                <td>
+                                    DEXALERT 6MG 30COMP
+                                </td>
+
+                                <td>54923</td>
+
+                                <td>10</td>
+
+                                <td>Lucas Miranda</td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <!-- alertas -->
+                <div class="alerts">
+
+                    <!-- alerta -->
+                    <div class="alert-card red-alert">
+
+                        <h3>15 lotes vencem em até 30 dias</h3>
+
+                        <p>
+                            Verifique os produtos próximos do vencimento.
+                        </p>
+
+                        <a href="#">
+                            + Ver detalhes
+                        </a>
+
+                    </div>
+
+                    <!-- alerta -->
+                    <div class="alert-card yellow-alert">
+
+                        <h3>22 produtos com estoque baixo</h3>
+
+                        <p>
+                            Estoque abaixo do mínimo definido.
+                        </p>
+
+                        <a href="#">
+                            + Ver detalhes
+                        </a>
+
+                    </div>
+
+                    <!-- alerta -->
+                    <div class="alert-card blue-alert">
+
+                        <h3>3 importações pendentes de envio</h3>
+
+                        <p>
+                            Finalize o processo de envio ao fornecedor.
+                        </p>
+
+                        <a href="#">
+                            + Ver detalhes
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

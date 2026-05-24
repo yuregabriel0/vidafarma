@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VidaFarma - Estoque Geral</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="../static/css/estoque.css">
+
+    <!-- fonte -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- sidebar -->
+        <aside class="sidebar">
+
+            <div class="sidebar-logo"></div>
+
+            <nav class="menu">
+
+                <a href="home.html">
+                    <i class="fa-solid fa-table-columns"></i>
+                    Dashboard
+                </a>
+
+                <a href="produtos.html">
+                    <i class="fa-solid fa-pills"></i>
+                    Produtos
+                </a>
+
+                <a href="#" class="active" class="active">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    Estoque Geral
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-layer-group"></i>
+                    Controle de Lotes
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    Movimentações
+                </a>
+
+            </nav>
+
+            <div class="logout">
+
+                <a href="login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Sair
+                </a>
+
+            </div>
+
+        </aside>
+
+        <!-- conteúdo -->
+        <main class="content">
+
+            <!-- topo -->
+            <header class="topbar">
+
+                <div class="top-left">
+
+                    <img src="../static/img/logo.png" alt="Logo">
+
+                </div>
+
+                <div class="top-right">
+
+                    <div class="user-info">
+
+                        <strong>George Henrique</strong>
+                        <span>Gerente Geral</span>
+
+                    </div>
+
+                    <div class="user-photo">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- dashboard -->
+            <div class="dashboard">
+
+                <!-- título -->
+                <div class="page-title">
+
+                    <h1>Estoque Geral</h1>
+
+                    <p>
+                        Controle completo dos produtos em estoque
+                    </p>
+
+                </div>
+
+                <!-- cards -->
+                <div class="cards">
+
+                    <div class="card">
+
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-cube"></i>
+                        </div>
+
+                        <h3>Produtos Cadastrados</h3>
+                        <h2>1.230</h2>
+
+                        <p>Total de produtos</p>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-icon green">
+                            <i class="fa-solid fa-chart-column"></i>
+                        </div>
+
+                        <h3>Valor Total do Estoque</h3>
+                        <h2>R$ 125.430,80</h2>
+
+                        <p>Valor estimado</p>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-icon yellow">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+
+                        <h3>Estoque Baixo</h3>
+                        <h2>22</h2>
+
+                        <p>Produtos abaixo do mínimo</p>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-icon red">
+                            <i class="fa-regular fa-calendar-xmark"></i>
+                        </div>
+
+                        <h3>Vencem em 30 dias</h3>
+                        <h2>15</h2>
+
+                        <p>Produtos próximos do vencimento</p>
+
+                    </div>
+
+                </div>
+
+                <!-- tabela -->
+                <div class="table-section">
+
+                    <!-- filtros -->
+                    <div class="table-filters">
+
+                        <div class="search-box">
+
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                            <input type="text" placeholder="Buscar produto por nome, código ou princípio ativo...">
+
+                        </div>
+
+                        <div class="filter-group">
+
+                            <button class="filter-btn">
+
+                                <i class="fa-solid fa-filter"></i>
+                                Filtros
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- tabela -->
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Código</th>
+                                <th>Produto</th>
+                                <th>Categoria</th>
+                                <th>Lote</th>
+                                <th>Validade</th>
+                                <th>Estoque Atual</th>
+                                <th>Unidade</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>1453</td>
+
+                                <td>
+
+                                    <div class="product-info">
+
+                                        <strong>DIPIRONA MONOIDRATADA 1G</strong>
+                                        <span>Medley</span>
+
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    <span class="badge blue-badge">
+                                        Genérico
+                                    </span>
+                                </td>
+
+                                <td>508090</td>
+
+                                <td>02/2028</td>
+
+                                <td class="stock blue-stock">
+                                    200
+                                </td>
+
+                                <td>Caixa</td>
+
+                                <td>
+                                    <span class="status normal-status">
+                                        Normal
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="view-btn">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>5026</td>
+
+                                <td>
+
+                                    <div class="product-info">
+
+                                        <strong>AMOXICILINA 800MG</strong>
+                                        <span>Cimed</span>
+
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    <span class="badge green-badge">
+                                        Antibiótico
+                                    </span>
+                                </td>
+
+                                <td>369874</td>
+
+                                <td>05/2028</td>
+
+                                <td class="stock yellow-stock">
+                                    50
+                                </td>
+
+                                <td>Caixa</td>
+
+                                <td>
+                                    <span class="status low-status">
+                                        Baixo
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="view-btn">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>9852</td>
+
+                                <td>
+
+                                    <div class="product-info">
+
+                                        <strong>FLEBODIA 100+900MG</strong>
+                                        <span>Servier</span>
+
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    <span class="badge purple-badge">
+                                        Similar
+                                    </span>
+                                </td>
+
+                                <td>125648</td>
+
+                                <td>05/2027</td>
+
+                                <td class="stock orange-stock">
+                                    20
+                                </td>
+
+                                <td>Caixa</td>
+
+                                <td>
+                                    <span class="status expire-status">
+                                        Vencendo
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="view-btn">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>3698</td>
+
+                                <td>
+
+                                    <div class="product-info">
+
+                                        <strong>DEXILANT 60MG</strong>
+                                        <span>Takeda</span>
+
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    <span class="badge purple-badge">
+                                        Similar
+                                    </span>
+                                </td>
+
+                                <td>569023</td>
+
+                                <td>02/2028</td>
+
+                                <td class="stock red-stock">
+                                    -10
+                                </td>
+
+                                <td>Caixa</td>
+
+                                <td>
+                                    <span class="status low-status">
+                                        Baixo
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="view-btn">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>1478</td>
+
+                                <td>
+
+                                    <div class="product-info">
+
+                                        <strong>RIVOTRIL 0,25MG</strong>
+                                        <span>Roche</span>
+
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    <span class="badge orange-badge">
+                                        Psicotrópico
+                                    </span>
+                                </td>
+
+                                <td>023165</td>
+
+                                <td>04/2028</td>
+
+                                <td class="stock blue-stock">
+                                    100
+                                </td>
+
+                                <td>Caixa</td>
+
+                                <td>
+                                    <span class="status normal-status">
+                                        Normal
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="view-btn">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <!-- rodapé -->
+                    <div class="table-footer">
+
+                        <div class="pagination">
+
+                            <button>
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+
+                            <button class="active-page">
+                                1
+                            </button>
+
+                            <button>2</button>
+                            <button>3</button>
+                            <button>4</button>
+                            <button>5</button>
+                            <button>6</button>
+                            <button>7</button>
+                            <button>8</button>
+                            <button>9</button>
+                            <button>10</button>
+                            <button>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+
+                        </div>
+
+                        <p>
+                            Mostrando 1 a 7 de 1.230 produtos
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- legenda -->
+                <div class="legend">
+
+                    <div>
+                        <span class="dot green-dot"></span>
+                        Normal: Estoque adequado
+                    </div>
+
+                    <div>
+                        <span class="dot orange-dot"></span>
+                        Baixo: Estoque abaixo do mínimo
+                    </div>
+
+                    <div>
+                        <span class="dot yellow-dot"></span>
+                        Vencendo: vencimento próximo
+                    </div>
+
+                    <div>
+                        <span class="dot red-dot"></span>
+                        Crítico: Sem estoque ou negativo
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

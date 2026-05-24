@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VidaFarma - Login</title>
+
+    <link rel="icon" href="../static/img/logo.png">
+
+    <!-- css -->
+    <link rel="stylesheet" href="../static/css/login.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- fonte -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- container principal -->
+    <div class="container">
+
+        <!-- lado esquerdo -->
+        <div class="left-side">
+
+            <!-- camada escura da imagem -->
+            <div class="overlay"></div>
+
+            <!-- imagem principal -->
+            <img src="../static/img/farmaceuticos.png" alt="Farmacêuticos" class="background-image">
+
+        </div>
+
+        <!-- lado direito -->
+        <div class="right-side">
+            <!-- caixa do login -->
+            <div class="login-box">
+
+                <!-- logo -->
+                <img src="../static/img/logo.png" alt="Logo VidaFarma" class="logo">
+
+                <!-- matrícula -->
+                <label for="matricula">
+                    Digite sua matrícula:
+                </label>
+
+                <!-- caixa do input -->
+                <div class="input-box">
+
+                    <!-- ícone -->
+                    <span class="icon">👤</span>
+
+                    <!-- input -->
+                    <input type="text" id="matricula" placeholder="Ex:123456">
+
+                </div>
+
+                <!-- senha -->
+                <label for="senha">
+                    Digite sua senha:
+                </label>
+
+                <!-- caixa da senha -->
+                <div class="input-box">
+
+                    <!-- ícone -->
+                    <span class="icon">🔒</span>
+
+                    <!-- input -->
+                    <input type="password" id="senha" placeholder="Digite sua senha">
+
+                     <!-- botão mostrar senha -->
+                     <i class="fa-solid fa-eye toggle-password"
+                     id="iconeSenha"
+                     onclick="mostrarSenha()">
+                     </i>
+                </div>
+
+                <!-- botão -->
+                <button onclick="fazerLogin()" type="submit">
+                    Acessar
+                </button>
+                
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- barra azul inferior -->
+    <div class="bottom-bar">
+
+        <p>
+            Uso exclusivo para colaboradores autorizados.
+        </p>
+
+        <!-- links -->
+        <div class="footer-links">
+
+            <a href="#">
+                Política de Privacidade
+            </a>
+
+            <span>-</span>
+
+            <a href="#">
+                Termos de Uso
+            </a>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // função do login
+        function fazerLogin(){
+
+            // pegando os valores digitados
+            const matricula = document.getElementById("matricula").value;
+            const senha = document.getElementById("senha").value;
+
+            // validação temporária
+            if(matricula === "123" && senha === "123"){
+
+                // indo pra home
+                window.location.href = "home.html";
+
+            }else{
+
+                // mensagem de erro
+                alert("Matrícula ou senha inválida.");
+
+            }
+
+        }
+
+    // mostrar ou esconder senha
+   function mostrarSenha() {
+
+    const input = document.getElementById("senha");
+    const icone = document.getElementById("iconeSenha");
+
+    const senhaVisivel = input.type === "text";
+
+    input.type = senhaVisivel ? "password" : "text";
+
+    icone.classList.toggle("fa-eye");
+    icone.classList.toggle("fa-eye-slash");
+
+}
+    </script>
+
+</body>
+</html>
