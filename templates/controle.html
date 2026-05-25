@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VidaFarma - Controle de Lotes</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="../static/css/controle.css">
+
+    <!-- fonte -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- barra lateral -->
+        <aside class="barra-lateral">
+
+            <div class="logo-lateral"></div>
+
+            <nav class="menu-lateral">
+
+                <a href="home.html">
+                    <i class="fa-solid fa-table-columns"></i>
+                    Dashboard
+                </a>
+
+                <a href="produtos.html">
+                    <i class="fa-solid fa-pills"></i>
+                    Produtos
+                </a>
+
+                <a href="estoque.html">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    Estoque Geral
+                </a>
+
+                <a href="#" class="active">
+                    <i class="fa-solid fa-layer-group"></i>
+                    Controle de Lotes
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    Movimentações
+                </a>
+
+            </nav>
+
+            <div class="botao-sair">
+
+                <a href="login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Sair
+                </a>
+
+            </div>
+
+        </aside>
+
+        <!-- conteúdo -->
+        <main class="conteudo">
+
+            <!-- barra superior -->
+            <header class="barra-superior">
+
+                <div class="topo-esquerdo">
+
+                    <img src="../static/img/logo.png" alt="Logo">
+
+                </div>
+
+                <div class="topo-direito">
+
+                    <div class="info-usuario">
+
+                        <strong>George Henrique</strong>
+                        <span>Gerente Geral</span>
+
+                    </div>
+
+                    <div class="foto-usuario">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- painel -->
+            <div class="painel">
+
+                <!-- título -->
+                <div class="titulo-pagina">
+
+                    <h1>Controle de Lotes</h1>
+
+                    <p>
+                        Gerencie os lotes dos medicamentos
+                    </p>
+
+                </div>
+
+                <!-- cards -->
+                <div class="cards">
+
+                    <div class="card">
+
+                        <div class="icone-card azul">
+                            <i class="fa-solid fa-cube"></i>
+                        </div>
+
+                        <h3>Lotes Ativos</h3>
+                        <h2>2.450</h2>
+
+                        <p>Lotes em estoque</p>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="icone-card verde">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+
+                        <h3>Lotes Válidos</h3>
+                        <h2>2.180</h2>
+
+                        <p>Lotes dentro da validade</p>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="icone-card laranja">
+                            <i class="fa-regular fa-calendar"></i>
+                        </div>
+
+                        <h3>Vencem em 30 dias</h3>
+                        <h2>15</h2>
+
+                        <p>Lotes próximos do vencimento</p>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="icone-card vermelho">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+
+                        <h3>Lotes Vencidos</h3>
+                        <h2>22</h2>
+
+                        <p>Lotes fora da validade</p>
+
+                    </div>
+
+                </div>
+
+                <!-- seção tabela -->
+                <div class="secao-tabela">
+
+                    <!-- filtros -->
+                    <div class="filtros-tabela">
+
+                        <div class="caixa-pesquisa">
+
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                            <input type="text" placeholder="Buscar produto, lote ou código...">
+
+                        </div>
+
+                        <div class="grupo-filtros">
+
+                            <select>
+                                <option>Todos</option>
+                            </select>
+
+                            <select>
+                                <option>Todos</option>
+                            </select>
+
+                            <select>
+                                <option>Todos</option>
+                            </select>
+
+                            <button class="botao-filtro">
+
+                                <i class="fa-solid fa-filter"></i>
+                                Filtros
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- tabela -->
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Produto</th>
+                                <th>Lote</th>
+                                <th>Fabricação</th>
+                                <th>Validade</th>
+                                <th>Qtd. Total</th>
+                                <th>Qtd. Disponível</th>
+                                <th>Status</th>
+                                <th>Situação</th>
+                                <th>Ações</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>
+
+                                    <div class="info-produto">
+
+                                        <strong>DIPIRONA MONOIDRATADA 1G</strong>
+                                        <span>Medley</span>
+
+                                    </div>
+
+                                </td>
+
+                                <td>508090</td>
+                                <td>15/02/2024</td>
+                                <td>15/02/2026</td>
+                                <td>1.000</td>
+
+                                <td class="estoque azul-estoque">
+                                    200
+                                </td>
+
+                                <td>
+                                    <span class="status status-normal">
+                                        Ativo
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="status status-valido">
+                                        Válido
+                                    </span>
+                                </td>
+
+                                <td class="acoes">
+
+                                    <button class="botao-acao">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+
+                                    <button class="botao-acao">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button>
+
+                                    <button class="botao-acao excluir">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+</html>
