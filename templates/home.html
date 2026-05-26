@@ -1,15 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>VidaFarma - Dashboard</title>
 
     <!-- css -->
-    <link rel="stylesheet" href="../static/css/home.css">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
 
     <!-- fonte -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -37,22 +39,22 @@
             <!-- menu lateral -->
             <nav class="menu">
 
-                <a href="#" class="active">
+                <a href="{% url 'home' %}" class="active">
                     <i class="fa-solid fa-table-columns"></i>
                     Dashboard
                 </a>
 
-                <a href="produtos.html">
+                <a href="{% url 'produtos' %}">
                     <i class="fa-solid fa-pills"></i>
                     Produtos
                 </a>
 
-                <a href="estoque.html">
+                <a href="{% url 'estoque' %}">
                     <i class="fa-solid fa-boxes-stacked"></i>
                     Estoque Geral
                 </a>
 
-                <a href="controle.html">
+                <a href="{% url 'controle' %}">
                     <i class="fa-solid fa-layer-group"></i>
                     Controle de Lotes
                 </a>
@@ -67,7 +69,7 @@
             <!-- botão sair -->
             <div class="logout">
 
-                <a href="login.html" target="_blank">
+                <a href="{% url 'login' %}" target="_blank">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Sair
                 </a>
@@ -86,7 +88,7 @@
                 <div class="top-left">
                    
 
-                    <img src="../static/img/logo.png" alt="Logo">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo">
 
                 </div>
 

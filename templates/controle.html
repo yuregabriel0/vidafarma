@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -9,7 +10,7 @@
     <title>VidaFarma - Controle de Lotes</title>
 
     <!-- css -->
-    <link rel="stylesheet" href="../static/css/controle.css">
+    <link rel="stylesheet" href="{% static 'css/controle.css' %}">
 
     <!-- fonte -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -30,22 +31,22 @@
 
             <nav class="menu-lateral">
 
-                <a href="home.html">
+                <a href="{% url 'home' %}">
                     <i class="fa-solid fa-table-columns"></i>
                     Dashboard
                 </a>
 
-                <a href="produtos.html">
+                <a href="{% url 'produtos' %}">
                     <i class="fa-solid fa-pills"></i>
                     Produtos
                 </a>
 
-                <a href="estoque.html">
+                <a href="{% url 'estoque' %}">
                     <i class="fa-solid fa-boxes-stacked"></i>
                     Estoque Geral
                 </a>
 
-                <a href="#" class="active">
+                <a href="{% url 'controle' %}" class="active">
                     <i class="fa-solid fa-layer-group"></i>
                     Controle de Lotes
                 </a>
@@ -76,7 +77,7 @@
 
                 <div class="topo-esquerdo">
 
-                    <img src="../static/img/logo.png" alt="Logo">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo">
 
                 </div>
 

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -8,10 +9,10 @@
 
     <title>VidaFarma - Login</title>
 
-    <link rel="icon" href="../static/img/logo.png">
+    <link rel="icon" href="{% static 'css/login.css' %}">
 
     <!-- css -->
-    <link rel="stylesheet" href="../static/css/login.css">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- fonte -->
@@ -31,7 +32,7 @@
             <div class="overlay"></div>
 
             <!-- imagem principal -->
-            <img src="../static/img/farmaceuticos.png" alt="Farmacêuticos" class="background-image">
+            <img src="{% static 'img/farmaceuticos.png' %}" alt="Farmacêuticos" class="background-image">
 
         </div>
 
@@ -40,50 +41,56 @@
             <!-- caixa do login -->
             <div class="login-box">
 
-                <!-- logo -->
-                <img src="../static/img/logo.png" alt="Logo VidaFarma" class="logo">
+                <form method="POST">
 
-                <!-- matrícula -->
-                <label for="matricula">
-                    Digite sua matrícula:
-                </label>
+            <!-- logo -->
+            <img src="{% static 'img/logo.png' %}" alt="Logo VidaFarma" class="logo">
+                        
+            <!-- matrícula -->
+            <label for="matricula">
+                Digite sua matrícula:
+            </label>
+        
+            <div class="input-box">
+            
+                <span class="icon"></span>
+            
+                <input type="text"
+                       name="matricula"
+                       id="matricula"
+                       placeholder="Ex:123456">
+            
+            </div>
+        
+            <senha>
+            <label for="senha">
+                Digite sua senha:
+            </label>
+        
+            <div class="input-box">
+            
+                <span class="icon"></span>
 
-                <!-- caixa do input -->
-                <div class="input-box">
+        <input type="password"
+               name="senha"
+               id="senha"
+               placeholder="Digite sua senha">
 
-                    <!-- ícone -->
-                    <span class="icon">👤</span>
+        <i class="fa-solid fa-eye toggle-password"
+           id="iconeSenha"
+           onclick="mostrarSenha()"></i>
 
-                    <!-- input -->
-                    <input type="text" id="matricula" placeholder="Ex:123456">
+    </div>
 
-                </div>
+    <!-- botão -->
+    <button type="submit">
+        Acessar
+    </button>
 
-                <!-- senha -->
-                <label for="senha">
-                    Digite sua senha:
-                </label>
+</form>
+                
 
-                <!-- caixa da senha -->
-                <div class="input-box">
-
-                    <!-- ícone -->
-                    <span class="icon">🔒</span>
-
-                    <!-- input -->
-                    <input type="password" id="senha" placeholder="Digite sua senha">
-
-                     <!-- botão mostrar senha -->
-                     <i class="fa-solid fa-eye toggle-password"
-                     id="iconeSenha"
-                     onclick="mostrarSenha()">
-                     </i>
-                </div>
-
-                <!-- botão -->
-                <button onclick="fazerLogin()" type="submit">
-                    Acessar
-                </button>
+               
                 
             </div>
 
@@ -116,28 +123,6 @@
     </div>
 
     <script>
-
-        // função do login
-        function fazerLogin(){
-
-            // pegando os valores digitados
-            const matricula = document.getElementById("matricula").value;
-            const senha = document.getElementById("senha").value;
-
-            // validação temporária
-            if(matricula === "123" && senha === "123"){
-
-                // indo pra home
-                window.location.href = "home.html";
-
-            }else{
-
-                // mensagem de erro
-                alert("Matrícula ou senha inválida.");
-
-            }
-
-        }
 
     // mostrar ou esconder senha
    function mostrarSenha() {
