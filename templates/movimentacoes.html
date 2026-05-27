@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VidaFarma - Movimentações</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="h.css">
+
+    <!-- fonte -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- sidebar -->
+        <aside class="sidebar">
+
+            <div class="sidebar-logo"></div>
+
+            <nav class="menu">
+
+                <a href="home.html">
+                    <i class="fa-solid fa-table-columns"></i>
+                    Dashboard
+                </a>
+
+                <a href="produtos.html">
+                    <i class="fa-solid fa-pills"></i>
+                    Produtos
+                </a>
+
+                <a href="estoque.html">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    Estoque Geral
+                </a>
+
+                <a href="lotes.html">
+                    <i class="fa-solid fa-layer-group"></i>
+                    Controle de Lotes
+                </a>
+
+                <a href="#" class="active">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    Movimentações
+                </a>
+
+            </nav>
+
+            <div class="logout">
+
+                <a href="login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Sair
+                </a>
+
+            </div>
+
+        </aside>
+
+        <!-- conteúdo -->
+        <main class="content">
+
+            <!-- topbar -->
+            <header class="topbar">
+
+                <div class="top-left">
+
+                    <img src="../static/img/logo.png" alt="Logo">
+
+                </div>
+
+                <div class="top-right">
+
+                    <div class="user-info">
+
+                        <strong>George Henrique</strong>
+                        <span>Gerente Geral</span>
+
+                    </div>
+
+                    <div class="user-photo">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- dashboard -->
+            <div class="dashboard">
+
+                <!-- título -->
+                <div class="page-title">
+
+                    <h1>Movimentações</h1>
+
+                    <p>
+                        Controle completo das entradas, saídas e ajustes
+                    </p>
+
+                </div>
+
+                <!-- cards -->
+                <div class="cards">
+
+                    <div class="card">
+
+                        <div class="card-icon green">
+                            <i class="fa-solid fa-arrow-down"></i>
+                        </div>
+
+                        <h3>Total de Entradas</h3>
+                        <h2>1.250</h2>
+
+                        <p>Entradas realizadas no sistema</p>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-icon red">
+                            <i class="fa-solid fa-arrow-up"></i>
+                        </div>
+
+                        <h3>Total de Saídas</h3>
+                        <h2>980</h2>
+
+                        <p>Saídas registradas</p>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-pen"></i>
+                        </div>
+
+                        <h3>Ajustes</h3>
+                        <h2>120</h2>
+
+                        <p>Ajustes manuais realizados</p>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-icon purple">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                        </div>
+
+                        <h3>Valor Movimentado</h3>
+                        <h2>R$ 128.450,80</h2>
+
+                        <p>Total movimentado</p>
+
+                    </div>
+
+                </div>
+
+                <!-- tabela -->
+                <div class="table-section">
+
+                    <!-- filtros -->
+                    <div class="table-filters">
+
+                        <div class="search-box">
+
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                            <input type="text" placeholder="Buscar movimentação...">
+
+                        </div>
+
+                        <div class="filter-group">
+
+                            <select>
+                                <option>Todos</option>
+                            </select>
+
+                            <input type="date">
+
+                            <input type="date">
+
+                            <button class="filter-btn">
+
+                                <i class="fa-solid fa-filter"></i>
+                                Filtros
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- tabs -->
+                    <div class="tabs">
+
+                        <button class="tab-btn active">
+                            Todas
+                        </button>
+
+                        <button class="tab-btn">
+                            Entradas
+                        </button>
+
+                        <button class="tab-btn">
+                            Saídas
+                        </button>
+
+                        <button class="tab-btn">
+                            Ajustes
+                        </button>
+
+                    </div>
+
+                    <!-- tabela -->
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Data</th>
+                                <th>Tipo</th>
+                                <th>Produto</th>
+                                <th>Lote</th>
+                                <th>Quantidade</th>
+                                <th>Usuário</th>
+                                <th>Motivo</th>
+                                <th>Ações</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>16/05/2026</td>
+
+                                <td>
+                                    <span class="type entry-type">
+                                        Entrada
+                                    </span>
+                                </td>
+
+                                <td>DIPIRONA 1G</td>
+
+                                <td>508090</td>
+
+                                <td class="green-text">
+                                    +200
+                                </td>
+
+                                <td>George Henrique</td>
+
+                                <td>Reposição</td>
+
+                                <td>
+
+                                    <button class="action-btn">
+
+                                        <i class="fa-solid fa-eye"></i>
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>15/05/2026</td>
+
+                                <td>
+                                    <span class="type exit-type">
+                                        Saída
+                                    </span>
+                                </td>
+
+                                <td>AMOXICILINA 500MG</td>
+
+                                <td>369874</td>
+
+                                <td class="red-text">
+                                    -50
+                                </td>
+
+                                <td>Ana Paula</td>
+
+                                <td>Venda</td>
+
+                                <td>
+
+                                    <button class="action-btn">
+
+                                        <i class="fa-solid fa-eye"></i>
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>14/05/2026</td>
+
+                                <td>
+                                    <span class="type adjust-type">
+                                        Ajuste
+                                    </span>
+                                </td>
+
+                                <td>RIVOTRIL 0,25MG</td>
+
+                                <td>023165</td>
+
+                                <td class="blue-text">
+                                    +10
+                                </td>
+
+                                <td>Carlos Lima</td>
+
+                                <td>Correção de estoque</td>
+
+                                <td>
+
+                                    <button class="action-btn">
+
+                                        <i class="fa-solid fa-eye"></i>
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <!-- footer -->
+                    <div class="table-footer">
+
+                        <p>
+                            Mostrando 1 a 3 de 1.250 movimentações
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+</html>
