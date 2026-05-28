@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -9,7 +10,7 @@
     <title>VidaFarma - Movimentações</title>
 
     <!-- css -->
-    <link rel="stylesheet" href="h.css">
+    <link rel="stylesheet" href="{% static 'css/movimentacoes.css' %}">
 
     <!-- fonte -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -30,27 +31,27 @@
 
             <nav class="menu">
 
-                <a href="home.html">
+                <a href="{% url 'home' %}">
                     <i class="fa-solid fa-table-columns"></i>
                     Dashboard
                 </a>
 
-                <a href="produtos.html">
+                <a href="{% url 'produtos' %}">
                     <i class="fa-solid fa-pills"></i>
                     Produtos
                 </a>
 
-                <a href="estoque.html">
+                <a href="{% url 'estoque' %}">
                     <i class="fa-solid fa-boxes-stacked"></i>
                     Estoque Geral
                 </a>
 
-                <a href="lotes.html">
+                <a href="{% url 'controle' %}">
                     <i class="fa-solid fa-layer-group"></i>
                     Controle de Lotes
                 </a>
 
-                <a href="#" class="active">
+                <a href="{% url 'movimentacoes' %}" class="active">
                     <i class="fa-solid fa-arrow-right-arrow-left"></i>
                     Movimentações
                 </a>
@@ -59,7 +60,7 @@
 
             <div class="logout">
 
-                <a href="login.html">
+                <a href="{% url 'login' %}">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Sair
                 </a>
@@ -76,7 +77,7 @@
 
                 <div class="top-left">
 
-                    <img src="../static/img/logo.png" alt="Logo">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo">
 
                 </div>
 
@@ -123,7 +124,7 @@
                         </div>
 
                         <h3>Total de Entradas</h3>
-                        <h2>1.250</h2>
+                        <h2>0</h2>
 
                         <p>Entradas realizadas no sistema</p>
 
@@ -136,7 +137,7 @@
                         </div>
 
                         <h3>Total de Saídas</h3>
-                        <h2>980</h2>
+                        <h2>0</h2>
 
                         <p>Saídas registradas</p>
 
@@ -149,7 +150,7 @@
                         </div>
 
                         <h3>Ajustes</h3>
-                        <h2>120</h2>
+                        <h2>0</h2>
 
                         <p>Ajustes manuais realizados</p>
 

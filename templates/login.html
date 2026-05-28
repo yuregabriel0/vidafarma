@@ -39,16 +39,17 @@
         <!-- lado direito -->
         <div class="right-side">
             <!-- caixa do login -->
-            <div class="login-box">
+     
 
-                <form method="POST">
+        <form method="POST" class="login-box">
+                {% csrf_token %}
 
             <!-- logo -->
             <img src="{% static 'img/logo.png' %}" alt="Logo VidaFarma" class="logo">
                         
             <!-- matrícula -->
             <label for="matricula">
-                Digite sua matrícula:
+            Digite sua matrícula:
             </label>
         
             <div class="input-box">
@@ -62,9 +63,9 @@
             
             </div>
         
-            <senha>
+            <!-- senha -->.
             <label for="senha">
-                Digite sua senha:
+            Digite sua senha:
             </label>
         
             <div class="input-box">
@@ -79,14 +80,19 @@
         <i class="fa-solid fa-eye toggle-password"
            id="iconeSenha"
            onclick="mostrarSenha()"></i>
+           
 
     </div>
+    {% if erro %}
+
+    <p>{{ erro }}</p>
+
+    {% endif %}
 
     <!-- botão -->
     <button type="submit">
         Acessar
     </button>
-
 </form>
                 
 

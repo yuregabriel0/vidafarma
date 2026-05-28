@@ -22,7 +22,8 @@ from .views import (
     home_view,
     produtos_view,
     estoque_view,
-    controle_view
+    controle_view,
+    movimentacoes_view
 )
 
 urlpatterns = [
@@ -32,4 +33,5 @@ urlpatterns = [
     path("produtos/", produtos_view, name="produtos"),
     path("estoque/", estoque_view, name="estoque"),
     path("controle/", controle_view, name="controle"),
+    path("movimentacoes/", movimentacoes_view, name="movimentacoes"),
 ]

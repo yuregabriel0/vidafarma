@@ -413,34 +413,14 @@ tbody tr{
 .red-stock{
     color: #ef4444;
 }
-
-/* status */
-.status{
+.preco{
     padding: 6px 10px;
-
     border-radius: 30px;
-
+    background-color: #9a9fa7;
     font-size: 11px;
     font-weight: 600;
 }
 
-/* tipos */
-.normal-status{
-    background-color: #dcfce7;
-    color: #16a34a;
-}
-
-.low-status{
-    background-color: #fef3c7;
-    color: #d97706;
-}
-
-.expire-status{
-    background-color: #ffedd5;
-    color: #ea580c;
-}
-
-/* botão */
 .view-btn{
     width: 35px;
     height: 35px;
