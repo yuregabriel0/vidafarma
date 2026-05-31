@@ -11,7 +11,7 @@ class Lote(models.Model):
 
     validade = models.DateField()
 
-    qtd_lote = models.IntegerField()
+    qtd_item = models.IntegerField()
 
     produto = models.ForeignKey(
         Produto,

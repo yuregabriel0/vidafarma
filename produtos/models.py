@@ -21,7 +21,7 @@ class Produto(models.Model):
         max_digits=10,
         decimal_places=2)
 
-    qtd_item = models.IntegerField()
+    qtd_est = models.IntegerField()
 
     categoria = models.ForeignKey(
         Categoria,
