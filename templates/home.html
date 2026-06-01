@@ -69,7 +69,7 @@
             <!-- botão sair -->
             <div class="logout">
 
-                <a href="{% url 'login' %}" target="_blank">
+                <a href="{% url 'logout' %}" onclick="return confirm('Tem certeza que deseja sair?');">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Sair
                 </a>
@@ -98,8 +98,8 @@
                     <!-- infos do usuário -->
                     <div class="user-info">
 
-                        <strong>George Henrique</strong>
-                        <span>Gerente Geral</span>
+                        <strong>{{ request.user.funcionario.nome }} {{ request.user.funcionario.sobrenome }}</strong>
+                        <span>{{ request.user.funcionario.cargo }}</span>
 
                     </div>
 
@@ -140,7 +140,7 @@
 
                         <h3>Produtos Cadastrados</h3>
 
-                        <h2>350</h2>
+                        <h2><h2>{{ total_produtos }}</h2>
 
                         <p>Total de produtos ativos</p>
 
@@ -157,7 +157,7 @@
 
                         <h3>Lotes Ativos</h3>
 
-                        <h2>2.450</h2>
+                        <h2>{{ total_lotes }}</h2>
 
                         <p>Lotes em estoque</p>
 
@@ -174,7 +174,7 @@
 
                         <h3>Estoque Baixo</h3>
 
-                        <h2>22</h2>
+                        <h2>{{ estoque_baixo }}</h2>
 
                         <p>Produtos abaixo do mínimo</p>
 
@@ -191,7 +191,7 @@
 
                         <h3>Vencem em 30 dias</h3>
 
-                        <h2>15</h2>
+                        <h2>{{ vencem_30_dias }}</h2>
 
                         <p>Lotes próximos do vencimento</p>
 
@@ -233,67 +233,45 @@
 
                         <tbody>
 
-                            <tr>
+    {% for mov in ultimas_movimentacoes %}
 
-                                <td>16/05/2026 10:23</td>
+        <tr>
 
-                                <td class="entrada">
-                                    ENTRADA
-                                </td>
+            <td>{{ mov.data|date:"d/m/Y" }}</td>
 
-                                <td>
-                                    DIPIRONA MONOIDRATADA 1G 500CMP
-                                </td>
+            <td class="{{ mov.tipo }}">
+                {{ mov.get_tipo_display|upper }}
+            </td>
 
-                                <td>568900</td>
+            <td>
+                {{ mov.lote.produto.nom_produto }}
+            </td>
 
-                                <td>200</td>
+            <td>
+                {{ mov.lote.id_lote }}
+            </td>
 
-                                <td>George Henrique</td>
+            <td>
+                {{ mov.quantidade }}
+            </td>
 
-                            </tr>
+            <td>
+                {{ mov.funcionario.nome }} {{ mov.funcionario.sobrenome }}
+            </td>
 
-                            <tr>
+        </tr>
 
-                                <td>16/05/2026 09:55</td>
+    {% empty %}
 
-                                <td class="saida">
-                                    SAÍDA
-                                </td>
+        <tr>
+            <td colspan="6">
+                Nenhuma movimentação registrada.
+            </td>
+        </tr>
 
-                                <td>
-                                    AMOXICILINA 500MG 300COMP
-                                </td>
+    {% endfor %}
 
-                                <td>38974</td>
-
-                                <td>50</td>
-
-                                <td>Ana Paula</td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td>15/05/2026 17:42</td>
-
-                                <td class="ajuste">
-                                    AJUSTE
-                                </td>
-
-                                <td>
-                                    DEXALERT 6MG 30COMP
-                                </td>
-
-                                <td>54923</td>
-
-                                <td>10</td>
-
-                                <td>Lucas Miranda</td>
-
-                            </tr>
-
-                        </tbody>
+</tbody>
 
                     </table>
 

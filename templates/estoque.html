@@ -60,7 +60,7 @@
 
             <div class="logout">
 
-                <a href="{% url 'login' %}" target="_blank">
+                <a href="{% url 'logout' %}" onclick="return confirm('Tem certeza que deseja sair?');">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Sair
                 </a>
@@ -85,8 +85,8 @@
 
                     <div class="user-info">
 
-                        <strong>George Henrique</strong>
-                        <span>Gerente Geral</span>
+                        <strong>{{ request.user.funcionario.nome }} {{ request.user.funcionario.sobrenome }}</strong>
+                        <span>{{ request.user.funcionario.cargo }}</span>
 
                     </div>
 
@@ -259,9 +259,15 @@
                                 </td>
 
                                 <td>
-                                    <button class="view-btn">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
+                                    <div class="actions">
+
+                                        <button>
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+
+                                        <button>
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
                                 </td>
 
                             </tr>
@@ -304,9 +310,13 @@
                                 </td>
 
                                 <td>
-                                    <button class="view-btn">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
+                                    <div class="actions">
+                                        <button>
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button>
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
                                 </td>
 
                             </tr>
@@ -349,9 +359,14 @@
                                 </td>
 
                                 <td>
-                                    <button class="view-btn">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
+                                    <div class="actions">
+                                        <button>
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button>
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </td>
 
                             </tr>
@@ -394,9 +409,14 @@
                                 </td>
 
                                 <td>
-                                    <button class="view-btn">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
+                                    <div class="actions">
+                                        <button>
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button>
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </td>
 
                             </tr>
@@ -439,9 +459,14 @@
                                 </td>
 
                                 <td>
-                                    <button class="view-btn">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
+                                    <div class="actions">
+                                        <button>
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button>
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </td>
 
                             </tr>
@@ -477,10 +502,6 @@
                             </button>
 
                         </div>
-
-                        <p>
-                            Mostrando 1 a 7 de 1.230 produtos
-                        </p>
 
                     </div>
 

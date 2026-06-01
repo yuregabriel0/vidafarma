@@ -428,30 +428,3 @@ tbody tr{
     background-color: #fee2e2;
     color: #dc2626;
 }
-
-/* ações */
-.actions{
-    display: flex;
-    gap: 10px;
-}
-
-/* botão ação */
-.actions button{
-    width: 35px;
-    height: 35px;
-
-    border: none;
-
-    border-radius: 8px;
-
-    cursor: pointer;
-
-    background-color: #f3f4f6;
-
-    transition: 0.3s;
-}
-
-/* hover */
-.actions button:hover{
-    background-color: #e5e7eb;
-}

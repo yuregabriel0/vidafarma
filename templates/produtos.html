@@ -60,7 +60,7 @@
 
             <div class="logout">
 
-                <a href="{% url 'login' %}">
+                <a href="{% url 'logout' %}">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Sair
                 </a>
@@ -85,8 +85,8 @@
 
                     <div class="user-info">
 
-                        <strong>George Henrique</strong>
-                        <span>Gerente Geral</span>
+                        <strong>{{ request.user.funcionario.nome }} {{ request.user.funcionario.sobrenome }}</strong>
+                        <span>{{ request.user.funcionario.cargo }}</span>
 
                     </div>
 
@@ -221,10 +221,10 @@
 
                                 <th>Produto</th>
                                 <th>Categoria</th>
+                                <th>Preço</th>
                                 <th>Estoque</th>
                                 <th>Status</th>
                                 <th>Validade</th>
-                                <th>Ações</th>
 
                             </tr>
 
@@ -275,16 +275,6 @@
                                 <td>12/11/2026</td>
 
                                 <td>
-
-                                    <div class="actions">
-
-                                        <button>
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-
-                                        <button>
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
 
                                     </div>
 

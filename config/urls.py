@@ -23,7 +23,8 @@ from .views import (
     produtos_view,
     estoque_view,
     controle_view,
-    movimentacoes_view
+    movimentacoes_view,
+    logout_view
 )
 
 urlpatterns = [
@@ -34,4 +35,5 @@ urlpatterns = [
     path("estoque/", estoque_view, name="estoque"),
     path("controle/", controle_view, name="controle"),
     path("movimentacoes/", movimentacoes_view, name="movimentacoes"),
+    path("logout/", logout_view, name="logout"),
 ]

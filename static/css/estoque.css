@@ -345,6 +345,26 @@ th{
 tbody tr{
     border-bottom: 1px solid #f1f5f9;
 }
+* botão ação */
+.actions button{
+    width: 35px;
+    height: 35px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    background-color: #f3f4f6;
+
+    transition: 0.3s;
+}
+
+/* hover */
+.actions button:hover{
+    background-color: #e5e7eb;
+}
 
 /* produto */
 .product-info{
@@ -506,3 +526,10 @@ tbody tr{
 .red-dot{
     background-color: #f43f5e;
 }
+
+.actions{
+    display: flex;
+    gap: 10px;
+}
+
+/

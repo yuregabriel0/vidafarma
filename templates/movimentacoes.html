@@ -60,7 +60,7 @@
 
             <div class="logout">
 
-                <a href="{% url 'login' %}">
+                <a href="{% url 'logout' %}">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Sair
                 </a>
@@ -85,8 +85,8 @@
 
                     <div class="user-info">
 
-                        <strong>George Henrique</strong>
-                        <span>Gerente Geral</span>
+                        <strong>{{ request.user.funcionario.nome }} {{ request.user.funcionario.sobrenome }}</strong>
+                        <span>{{ request.user.funcionario.cargo }}</span>
 
                     </div>
 

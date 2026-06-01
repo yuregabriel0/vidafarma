@@ -1,11 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Funcionario(models.Model):
 
+    usuario = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
     matricula = models.CharField(
-    max_length=8,
-    primary_key=True
-)
+        max_length=8,
+        primary_key=True
+    )
 
     nome = models.CharField(
         max_length=20
