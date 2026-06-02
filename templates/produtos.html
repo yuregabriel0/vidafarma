@@ -116,15 +116,99 @@
 
                     </div>
 
-                    <button class="new-product-btn">
+                   <button type="button" class="new-product-btn" onclick="abrirPainelProduto()">
 
-                        <i class="fa-solid fa-plus"></i>
-                        Novo Produto
-
-                    </button>
-
+                            <i class="fa-solid fa-plus"></i>
+                            Novo Produto
+                            </button>
                 </div>
+        <div id="overlay" class="overlay"></div>
 
+<div id="painelProduto" class="painel-produto">
+
+    <h2>Cadastrar Produto</h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+
+            <label>Código do Produto</label>
+
+            <input
+                type="text"
+                name="cod_prod"
+                required>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Nome do Produto</label>
+
+            <input
+                type="text"
+                name="nom_produto"
+                required>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Preço</label>
+
+            <input
+                type="number"
+                step="0.01"
+                name="preco"
+                required>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Categoria</label>
+
+            <select
+                name="categoria"
+                required>
+
+                {% for categoria in categorias %}
+
+                    <option value="{{ categoria.id_categoria }}">
+                        {{ categoria.nome_cat }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="botoes-form">
+
+            <button
+                type="button"
+                class="cancel-btn"
+                onclick="fecharPainelProduto()">
+
+                Cancelar
+
+            </button>
+
+            <button
+                type="submit"
+                class="save-btn">
+
+                Salvar Produto
+
+            </button>
+        </div>
+
+    </form>
+
+</div>
                 <!-- cards -->
                 <div class="cards">
 
@@ -135,7 +219,7 @@
                         </div>
 
                         <h3>Total de Produtos</h3>
-                        <h2>1.230</h2>
+                        <h2>{{ total_produtos }}</h2>
 
                         <p>Produtos cadastrados</p>
 
@@ -148,9 +232,9 @@
                         </div>
 
                         <h3>Produtos Ativos</h3>
-                        <h2>1.102</h2>
+                        <h2>{{ produtos_ativos }}</h2>
 
-                        <p>Disponíveis para movimentação</p>
+                       
 
                     </div>
 
@@ -161,9 +245,7 @@
                         </div>
 
                         <h3>Estoque Baixo</h3>
-                        <h2>22</h2>
-
-                        <p>Necessitam reposição</p>
+                        <h2>{{ estoque_baixo }}</h2>
 
                     </div>
 
@@ -174,9 +256,7 @@
                         </div>
 
                         <h3>Inativos</h3>
-                        <h2>18</h2>
-
-                        <p>Produtos desativados</p>
+                        <h2>{{ produtos_inativos }}</h2>
 
                     </div>
 
@@ -189,11 +269,19 @@
                     <div class="table-top">
 
                         <!-- pesquisa -->
-                        <div class="search-box">
+                       <div class="search-box">
 
                             <i class="fa-solid fa-magnifying-glass"></i>
 
-                            <input type="text" placeholder="Pesquisar produto...">
+                                <form method="GET" id="formPesquisa">
+
+                                 <input
+                                    type="text"
+                                    name="pesquisa"
+                                    placeholder="Pesquisar produto..."
+                                    value="{{ request.GET.pesquisa }}">
+                                            
+                                </form>
 
                         </div>
 
@@ -212,199 +300,110 @@
 
                     </div>
 
-                    <!-- tabela -->
-                    <table>
+                   <table>
 
-                        <thead>
+    <thead>
 
-                            <tr>
+        <tr>
 
-                                <th>Produto</th>
-                                <th>Categoria</th>
-                                <th>Preço</th>
-                                <th>Estoque</th>
-                                <th>Status</th>
-                                <th>Validade</th>
+            <th>Código</th>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+            <th>Estoque</th>
+            <th>Status</th>
 
-                            </tr>
+        </tr>
 
-                        </thead>
+    </thead>
 
-                        <tbody>
+    <tbody>
 
-                            <tr>
+        {% for produto in produtos %}
 
-                                <td>
+        <tr>
 
-                                    <div class="product-info">
+            <td>
 
-                                        <div class="product-image">
-                                            <i class="fa-solid fa-pills"></i>
-                                        </div>
+                {{ produto.cod_prod }}
 
-                                        <div>
+            </td>
 
-                                            <strong>
-                                                DIPIRONA MONOIDRATADA 1G
-                                            </strong>
+            <td>
 
-                                            <span>
-                                                500 comprimidos
-                                            </span>
+                <div class="product-info">
 
-                                        </div>
+                    <div class="product-image">
+                        <i class="fa-solid fa-pills"></i>
+                    </div>
 
-                                    </div>
+                    <div>
 
-                                </td>
+                        <strong>
+                            {{ produto.nom_produto }}
+                        </strong>
 
-                                <td>
-                                    <span class="badge blue-badge">
-                                        Analgésico
-                                    </span>
-                                </td>
+                    </div>
 
-                                <td>420</td>
+                </div>
 
-                                <td>
-                                    <span class="status active-status">
-                                        Ativo
-                                    </span>
-                                </td>
+            </td>
 
-                                <td>12/11/2026</td>
+            <td>
 
-                                <td>
+                <span class="badge blue-badge">
+                    {{ produto.categoria.nome_cat }}
+                </span>
 
-                                    </div>
+            </td>
 
-                                </td>
+            <td>
 
-                            </tr>
+                R$ {{ produto.preco }}
 
-                            <tr>
+            </td>
 
-                                <td>
+            <td>
 
-                                    <div class="product-info">
+                {{ produto.qtd_est }}
 
-                                        <div class="product-image">
-                                            <i class="fa-solid fa-capsules"></i>
-                                        </div>
+            </td>
 
-                                        <div>
+            <td>
 
-                                            <strong>
-                                                AMOXICILINA 500MG
-                                            </strong>
+                {% if produto.qtd_est > 0 %}
 
-                                            <span>
-                                                300 comprimidos
-                                            </span>
+                    <span class="status active-status">
+                        Ativo
+                    </span>
 
-                                        </div>
+                {% else %}
 
-                                    </div>
+                    <span class="status inactive-status">
+                        Inativo
+                    </span>
 
-                                </td>
+                {% endif %}
 
-                                <td>
-                                    <span class="badge green-badge">
-                                        Antibiótico
-                                    </span>
-                                </td>
+            </td>
 
-                                <td>85</td>
+        </tr>
 
-                                <td>
-                                    <span class="status active-status">
-                                        Ativo
-                                    </span>
-                                </td>
+        {% empty %}
 
-                                <td>18/08/2026</td>
+        <tr>
 
-                                <td>
+            <td colspan="6">
+                Nenhum produto cadastrado.
+            </td>
 
-                                    <div class="actions">
+        </tr>
 
-                                        <button>
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
+        {% endfor %}
 
-                                        <button>
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
+    </tbody>
 
-                                    </div>
-
-                                </td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td>
-
-                                    <div class="product-info">
-
-                                        <div class="product-image">
-                                            <i class="fa-solid fa-tablets"></i>
-                                        </div>
-
-                                        <div>
-
-                                            <strong>
-                                                DEXALERT 6MG
-                                            </strong>
-
-                                            <span>
-                                                30 comprimidos
-                                            </span>
-
-                                        </div>
-
-                                    </div>
-
-                                </td>
-
-                                <td>
-                                    <span class="badge red-badge">
-                                        Controlado
-                                    </span>
-                                </td>
-
-                                <td>12</td>
-
-                                <td>
-                                    <span class="status inactive-status">
-                                        Inativo
-                                    </span>
-                                </td>
-
-                                <td>09/06/2026</td>
-
-                                <td>
-
-                                    <div class="actions">
-
-                                        <button>
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-
-                                        <button>
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-
-                                    </div>
-
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
+</table>
 
                 </div>
 
@@ -413,6 +412,39 @@
         </main>
 
     </div>
+    <script>
+
+document.querySelector(
+    'input[name="pesquisa"]'
+).addEventListener("keyup", function(event){
+
+    if(event.key === "Enter"){
+
+        document.getElementById(
+            "formPesquisa"
+        ).submit();
+
+    }
+
+});        
+
+function abrirPainelProduto() {
+
+    document.getElementById("painelProduto").style.display = "block";
+
+    document.getElementById("overlay").style.display = "block";
+
+}
+
+function fecharPainelProduto() {
+
+    document.getElementById("painelProduto").style.display = "none";
+
+    document.getElementById("overlay").style.display = "none";
+
+}
+
+</script>
 
 </body>
 </html>

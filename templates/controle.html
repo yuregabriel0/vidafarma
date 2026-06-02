@@ -60,7 +60,7 @@
 
             <div class="botao-sair">
 
-                <a href="{% url 'logout' %}">
+                <a href="{% url 'logout' %}" onclick="return confirm('Tem certeza que deseja sair?')">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Sair
                 </a>
