@@ -110,10 +110,6 @@
 
                         <h1>Produtos</h1>
 
-                        <p>
-                            Gerencie os medicamentos cadastrados no sistema
-                        </p>
-
                     </div>
 
                    <button type="button" class="new-product-btn" onclick="abrirPainelProduto()">
@@ -221,8 +217,6 @@
                         <h3>Total de Produtos</h3>
                         <h2>{{ total_produtos }}</h2>
 
-                        <p>Produtos cadastrados</p>
-
                     </div>
 
                     <div class="card">
@@ -233,8 +227,6 @@
 
                         <h3>Produtos Ativos</h3>
                         <h2>{{ produtos_ativos }}</h2>
-
-                       
 
                     </div>
 
@@ -252,11 +244,11 @@
                     <div class="card">
 
                         <div class="card-icon red">
-                            <i class="fa-solid fa-ban"></i>
+                            <i class="fa-regular fa-calendar-xmark"></i>
                         </div>
 
-                        <h3>Inativos</h3>
-                        <h2>{{ produtos_inativos }}</h2>
+                        <h3>Vencem em 30 dias</h3>
+                        <h2>{{ vencem_30_dias }}</h2>
 
                     </div>
 
@@ -284,18 +276,54 @@
                                 </form>
 
                         </div>
-
                         <!-- filtros -->
                         <div class="filters">
 
-                            <select>
-                                <option>Categoria</option>
-                            </select>
+                            <form method="GET">
 
-                            <select>
-                                <option>Status</option>
-                            </select>
+                            <select name="categoria_filtro" onchange="this.form.submit()">
 
+                            <option value="">
+                            Todas Categorias
+                                </option>
+
+                        {% for categoria in categorias %}
+
+                            <option
+                            value="{{ categoria.id_categoria }}"
+                            {% if request.GET.categoria_filtro == categoria.id_categoria|stringformat:"s" %}
+                            selected
+                            {% endif %}
+                >
+
+                        {{ categoria.nome_cat }}
+
+                            </option>
+
+                            {% endfor %}
+
+        </select>
+
+        <select name="status_filtro" onchange="this.form.submit()">
+
+            <option value="">
+                Todos Status
+            </option>
+
+            <option value="ativo">
+                Ativo
+            </option>
+
+            <option value="inativo">
+                Inativo
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
+                        
                         </div>
 
                     </div>
@@ -404,6 +432,43 @@
     </tbody>
 
 </table>
+    <div class="pagination">
+
+    {% if produtos.has_previous %}
+
+        <a href="?page={{ produtos.previous_page_number }}">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+
+    {% endif %}
+
+    {% for num in produtos.paginator.page_range %}
+
+        {% if produtos.number == num %}
+
+            <span class="active-page">
+                {{ num }}
+            </span>
+
+        {% else %}
+
+            <a href="?page={{ num }}">
+                {{ num }}
+            </a>
+
+        {% endif %}
+
+    {% endfor %}
+
+    {% if produtos.has_next %}
+
+        <a href="?page={{ produtos.next_page_number }}">
+            <i class="fa-solid fa-chevron-right"></i>
+        </a>
+
+    {% endif %}
+
+</div>
 
                 </div>
 
@@ -412,6 +477,7 @@
         </main>
 
     </div>
+
     <script>
 
 document.querySelector(

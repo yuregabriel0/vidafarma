@@ -99,7 +99,6 @@
                 </div>
 
             </header>
-
             <!-- painel -->
             <div class="painel">
 
@@ -108,9 +107,82 @@
 
                     <h1>Controle de Lotes</h1>
 
-                    <p>
-                        Gerencie os lotes dos medicamentos
-                    </p>
+                                   <button
+                        type="button"
+                        class="new-product-btn"
+                        onclick="abrirPainelLote()">
+
+                        <i class="fa-solid fa-plus"></i>
+                        Adicionar Lote
+
+                    </button>
+                    <div id="overlay" class="overlay"></div>
+
+<div id="painelLote" class="painel-produto">
+
+    <h2>Cadastrar Lote</h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+
+            <label>Produto</label>
+
+            <select name="produto" required>
+
+                {% for produto in produtos %}
+
+                <option value="{{ produto.cod_prod }}">
+                    {{ produto.cod_prod }} - {{ produto.nom_produto }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Número do Lote</label>
+
+            <input type="text" name="id_lote" required>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Validade</label>
+
+            <input type="date" name="validade" required>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Quantidade De Itens</label>
+
+            <input type="number" name="qtd_item" min="1" required>
+
+        </div>
+
+        <div class="botoes-form">
+
+            <button type="button" class="cancel-btn" onclick="fecharPainelLote()">
+                Cancelar
+            </button>
+
+            <button type="submit" class="save-btn">
+                Salvar Lote
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
 
                 </div>
 
@@ -124,10 +196,7 @@
                         </div>
 
                         <h3>Lotes Ativos</h3>
-                        <h2>2.450</h2>
-
-                        <p>Lotes em estoque</p>
-
+                       <h2>{{ lotes_ativos }}</h2>
                     </div>
 
                     <div class="card">
@@ -137,10 +206,7 @@
                         </div>
 
                         <h3>Lotes Válidos</h3>
-                        <h2>2.180</h2>
-
-                        <p>Lotes dentro da validade</p>
-
+                        <h2>{{ lotes_validos }}</h2>
                     </div>
 
                     <div class="card">
@@ -150,12 +216,12 @@
                         </div>
 
                         <h3>Vencem em 30 dias</h3>
-                        <h2>15</h2>
+                       <h2>{{ vencem_30_dias }}</h2>
 
                         <p>Lotes próximos do vencimento</p>
 
                     </div>
-
+    
                     <div class="card">
 
                         <div class="icone-card vermelho">
@@ -163,7 +229,7 @@
                         </div>
 
                         <h3>Lotes Vencidos</h3>
-                        <h2>22</h2>
+                        <h2>{{ lotes_vencidos }}</h2>
 
                         <p>Lotes fora da validade</p>
 
@@ -171,123 +237,212 @@
 
                 </div>
 
-                <!-- seção tabela -->
-                <div class="secao-tabela">
+               <!-- seção tabela -->
+<div class="secao-tabela">
 
-                    <!-- filtros -->
-                    <div class="filtros-tabela">
+    <div class="filtros-tabela">
 
-                        <div class="caixa-pesquisa">
+        <div class="caixa-pesquisa">
 
-                            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-solid fa-magnifying-glass"></i>
 
-                            <input type="text" placeholder="Buscar produto, lote ou código...">
+            <form method="GET" id="formPesquisa">
 
-                        </div>
+                <input
+                    type="text"
+                    name="pesquisa"
+                    placeholder="Buscar produto ou lote..."
+                    value="{{ request.GET.pesquisa }}">
 
-                        <div class="grupo-filtros">
+            </form>
 
-                            <select>
-                                <option>Todos</option>
-                            </select>
+        </div>
 
-                            <select>
-                                <option>Todos</option>
-                            </select>
+        <div class="filters">
 
-                            <select>
-                                <option>Todos</option>
-                            </select>
+            <form method="GET">
 
-                            <button class="botao-filtro">
+            <select 
+                name="funcionario_filtro"
+                onchange="this.form.submit()">
 
-                                <i class="fa-solid fa-filter"></i>
-                                Filtros
+                <option value="">
+                    Todos Funcionários
+                </option>
 
-                            </button>
+                {% for funcionario in funcionarios %}
 
-                        </div>
+                <option
+                    value="{{ funcionario.matricula }}"
+
+                    {% if request.GET.funcionario_filtro == funcionario.matricula %}
+                    selected
+                    {% endif %}>
+
+                    {{ funcionario.nome }}
+                    {{ funcionario.sobrenome }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+        </form>
+    </div>
+
 
                     </div>
 
                     <!-- tabela -->
                     <table>
 
-                        <thead>
+    <thead>
 
-                            <tr>
+        <tr>
 
-                                <th>Produto</th>
-                                <th>Lote</th>
-                                <th>Fabricação</th>
-                                <th>Validade</th>
-                                <th>Qtd. Total</th>
-                                <th>Qtd. Disponível</th>
-                                <th>Status</th>
-                                <th>Situação</th>
-                                <th>Ações</th>
+            <th>Código</th>
+            <th>Produto</th>
+            <th>Lote</th>
+            <th>Validade</th>
+            <th>Qtd. Item</th>
+            <th>Funcionário</th>
+            <th>Status</th>
 
-                            </tr>
+        </tr>
 
-                        </thead>
+    </thead>
 
-                        <tbody>
+    <tbody>
 
-                            <tr>
+        {% for lote in lotes %}
 
-                                <td>
+        <tr>
 
-                                    <div class="info-produto">
+            <td>
 
-                                        <strong>DIPIRONA MONOIDRATADA 1G</strong>
-                                        <span>Medley</span>
+                {{ lote.produto.cod_prod }}
 
-                                    </div>
+            </td>
 
-                                </td>
+            <td>
 
-                                <td>508090</td>
-                                <td>15/02/2024</td>
-                                <td>15/02/2026</td>
-                                <td>1.000</td>
+                <div class="info-produto">
 
-                                <td class="estoque azul-estoque">
-                                    200
-                                </td>
+                    <strong>
 
-                                <td>
-                                    <span class="status status-normal">
-                                        Ativo
-                                    </span>
-                                </td>
+                        {{ lote.produto.nom_produto }}
 
-                                <td>
-                                    <span class="status status-valido">
-                                        Válido
-                                    </span>
-                                </td>
+                    </strong>
 
-                                <td class="acoes">
+                </div>
 
-                                    <button class="botao-acao">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
+            </td>
 
-                                    <button class="botao-acao">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </button>
+            <td>
 
-                                    <button class="botao-acao excluir">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
+                {{ lote.id_lote }}
 
-                                </td>
+            </td>
 
-                            </tr>
+            <td>
 
-                        </tbody>
+                {{ lote.validade|date:"d/m/Y" }}
 
-                    </table>
+            </td>
+
+            <td>
+
+                {{ lote.qtd_item }}
+
+            </td>
+
+            <td>
+
+                {{ lote.funcionario.nome }}
+                {{ lote.funcionario.sobrenome }}
+
+            </td>
+
+            <td>
+
+                {% if lote.validade < hoje %}
+
+                    <span class="estoque vermelho-estoque">
+                        Vencido
+                    </span>
+
+                {% elif lote.validade <= proximos_30_dias %}
+
+                    <span class="estoque amarelo-estoque">
+                        Vence em breve
+                    </span>
+
+                {% else %}
+
+                    <span class="estoque azul-estoque">
+                        Válido
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+
+            <td colspan="7">
+
+                Nenhum lote cadastrado.
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+        <div class="pagination">
+
+    {% if lotes.has_previous %}
+
+        <a href="?page={{ lotes.previous_page_number }}">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+
+    {% endif %}
+
+    {% for num in lotes.paginator.page_range %}
+
+        {% if lotes.number == num %}
+
+            <span class="active-page">
+                {{ num }}
+            </span>
+
+        {% else %}
+
+            <a href="?page={{ num }}">
+                {{ num }}
+            </a>
+
+        {% endif %}
+
+    {% endfor %}
+
+    {% if lotes.has_next %}
+
+        <a href="?page={{ lotes.next_page_number }}">
+            <i class="fa-solid fa-chevron-right"></i>
+        </a>
+
+    {% endif %}
+
+</div>
 
                 </div>
 
@@ -296,6 +451,40 @@
         </main>
 
     </div>
+    <script>
+        
+
+function abrirPainelLote() {
+
+    document.getElementById("painelLote").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+
+}
+
+function fecharPainelLote() {
+
+    document.getElementById("painelLote").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+
+}
+
+
+
+document.querySelector(
+    'input[name="pesquisa"]'
+).addEventListener("keyup", function(event){
+
+    if(event.key === "Enter"){
+
+        document.getElementById(
+            "formPesquisa"
+        ).submit();
+
+    }
+
+});
+
+</script>
 
 </body>
 </html>

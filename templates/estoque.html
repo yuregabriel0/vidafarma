@@ -117,59 +117,58 @@
                 <!-- cards -->
                 <div class="cards">
 
-                    <div class="card">
+    <div class="card">
 
-                        <div class="card-icon blue">
-                            <i class="fa-solid fa-cube"></i>
-                        </div>
+        <div class="card-icon blue">
+            <i class="fa-solid fa-cube"></i>
+        </div>
 
-                        <h3>Produtos Cadastrados</h3>
-                        <h2>1.230</h2>
+        <h3>Produtos Cadastrados</h3>
+        <h2>{{ total_produtos }}</h2>
 
-                        <p>Total de produtos</p>
+        <p>Total de produtos</p>
 
-                    </div>
+    </div>
 
-                    <div class="card">
+    <div class="card">
 
-                        <div class="card-icon green">
-                            <i class="fa-solid fa-chart-column"></i>
-                        </div>
+        <div class="card-icon green">
+            <i class="fa-solid fa-chart-column"></i>
+        </div>
 
-                        <h3>Valor Total do Estoque</h3>
-                        <h2>R$ 125.430,80</h2>
+        <h3>Valor Total do Estoque</h3>
+        <h2>R$ {{ valor_total }}</h2>
 
-                        <p>Valor estimado</p>
+        <p>Valor estimado</p>
 
-                    </div>
+    </div>
 
-                    <div class="card">
+    <div class="card">
 
-                        <div class="card-icon yellow">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                        </div>
+        <div class="card-icon yellow">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
 
-                        <h3>Estoque Baixo</h3>
-                        <h2>22</h2>
+        <h3>Estoque Baixo</h3>
+        <h2>{{ estoque_baixo }}</h2>
 
-                        <p>Produtos abaixo do mínimo</p>
+        <p>Produtos abaixo do mínimo</p>
 
-                    </div>
+    </div>
 
-                    <div class="card">
+    <div class="card">
 
-                        <div class="card-icon red">
-                            <i class="fa-regular fa-calendar-xmark"></i>
-                        </div>
+        <div class="card-icon red">
+            <i class="fa-regular fa-calendar-xmark"></i>
+        </div>
 
-                        <h3>Vencem em 30 dias</h3>
-                        <h2>15</h2>
+        <h3>Vencem em 30 dias</h3>
+        <h2>{{ vencem_30_dias }}</h2>
 
-                        <p>Produtos próximos do vencimento</p>
+        <p>Produtos próximos do vencimento</p>
+    </div>
 
-                    </div>
-
-                </div>
+</div>
 
                 <!-- tabela -->
                 <div class="table-section">
@@ -179,25 +178,49 @@
 
                         <div class="search-box">
 
-                            <i class="fa-solid fa-magnifying-glass"></i>
-
-                            <input type="text" placeholder="Buscar produto por nome, código ou princípio ativo...">
-
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                                    
+                                <form method="GET" id="formPesquisa">
+                                
+                                    <input
+                                        type="text"
+                                        name="pesquisa"
+                                        placeholder="Buscar produto, lote ou código..."
+                                        value="{{ request.GET.pesquisa }}">
+                                
+                                </form>
                         </div>
+                                <form method="GET">
 
-                        <div class="filter-group">
+    <select
+        name="categoria_filtro"
+        onchange="this.form.submit()">
 
-                            <button class="filter-btn">
+        <option value="">
+            Todas Categorias
+        </option>
 
-                                <i class="fa-solid fa-filter"></i>
-                                Filtros
+        {% for categoria in categorias %}
 
-                            </button>
+        <option
+            value="{{ categoria.id_categoria }}"
 
-                        </div>
+            {% if request.GET.categoria_filtro == categoria.id_categoria|stringformat:"s" %}
+            selected
+            {% endif %}>
+
+            {{ categoria.nome_cat }}
+
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+</form>
 
                     </div>
-
+                        
                     <!-- tabela -->
                     <table>
 
@@ -220,252 +243,70 @@
 
                         <tbody>
 
-                            <tr>
+    {% for lote in lotes %}
 
-                                <td>1453</td>
+    <tr>
 
-                                <td>
+        <td>{{ lote.produto.cod_prod }}</td>
 
-                                    <div class="product-info">
+        <td>
 
-                                        <strong>DIPIRONA MONOIDRATADA 1G</strong>
+            <div class="product-info">
 
-                                    </div>
+                <strong>{{ lote.produto.nom_produto }}</strong>
 
-                                </td>
+            </div>
 
-                                <td>
-                                    <span class="badge blue-badge">
-                                        Genérico
-                                    </span>
-                                </td>
+        </td>
 
-                                <td>508090</td>
+        <td>
+            <span class="badge blue-badge">
+                {{ lote.produto.categoria.nome_cat }}
+            </span>
+        </td>
 
-                                <td>02/2028</td>
+        <td>{{ lote.id_lote }}</td>
 
-                                <td class="stock blue-stock">
-                                    200
-                                </td>
+        <td>{{ lote.validade|date:"d/m/Y" }}</td>
 
-                                <td>Caixa</td>
+        <td class="stock blue-stock">
+            {{ lote.qtd_item }}
+        </td>
 
-                                <td>
-                                    <span class="preco">
-                                        R$15,00
-                                    </span>
-                                </td>
-                            </tr>
+        <td>Caixa</td>
 
-                            <tr>
+        <td>
+            <span class="preco">
+                R$ {{ lote.produto.preco }}
+            </span>
+        </td>
 
-                                <td>5026</td>
+    </tr>
 
-                                <td>
+    {% empty %}
 
-                                    <div class="product-info">
+    <tr>
 
-                                        <strong>AMOXICILINA 800MG</strong>
+        <td colspan="8">
+            Nenhum lote cadastrado no estoque.
+        </td>
 
-                                    </div>
+    </tr>
 
-                                </td>
+    {% endfor %}
 
-                                <td>
-                                    <span class="badge green-badge">
-                                        Antibiótico
-                                    </span>
-                                </td>
-
-                                <td>369874</td>
-
-                                <td>05/2028</td>
-
-                                <td class="stock yellow-stock">
-                                    50
-                                </td>
-
-                                <td>Caixa</td>
-
-                                <td>
-                                    <span class="preco">
-                                        R$22,00
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <tr>
-
-                                <td>9852</td>
-
-                                <td>
-
-                                    <div class="product-info">
-
-                                        <strong>FLEBODIA 100+900MG</strong>
-
-                                    </div>
-
-                                </td>
-
-                                <td>
-                                    <span class="badge purple-badge">
-                                        Similar
-                                    </span>
-                                </td>
-
-                                <td>125648</td>
-
-                                <td>05/2027</td>
-
-                                <td class="stock orange-stock">
-                                    20
-                                </td>
-
-                                <td>Caixa</td>
-
-                                <td>
-                                    <span class="preco">
-                                        R$145,00
-                                    </span>
-                                </td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td>3698</td>
-
-                                <td>
-
-                                    <div class="product-info">
-
-                                        <strong>DEXILANT 60MG</strong>
-
-                                    </div>
-
-                                </td>
-
-                                <td>
-                                    <span class="badge purple-badge">
-                                        Similar
-                                    </span>
-                                </td>
-
-                                <td>569023</td>
-
-                                <td>02/2028</td>
-
-                                <td class="stock red-stock">
-                                    -10
-                                </td>
-
-                                <td>Caixa</td>
-
-                                <td>
-                                    <span class="preco">
-                                        R$30,00
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <tr>
-
-                                <td>1478</td>
-
-                                <td>
-
-                                    <div class="product-info">
-
-                                        <strong>RIVOTRIL 0,25MG</strong>
-                                    </div>
-
-                                </td>
-
-                                <td>
-                                    <span class="badge orange-badge">
-                                        Psicotrópico
-                                    </span>
-                                </td>
-
-                                <td>023165</td>
-
-                                <td>04/2028</td>
-
-                                <td class="stock blue-stock">
-                                    100
-                                </td>
-
-                                <td>Caixa</td>
-
-                                <td>
-                                    <span class="preco">
-                                        R$53,00
-                                    </span>
-                                </td>
-                            </tr>
-
-                        </tbody>
-
+</tbody>
                     </table>
+
+                    
 
                     <!-- rodapé -->
                     <div class="table-footer">
 
-                        <div class="pagination">
-
-                            <button>
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </button>
-
-                            <button class="active-page">
-                                1
-                            </button>
-
-                            <button>2</button>
-                            <button>3</button>
-                            <button>4</button>
-                            <button>5</button>
-                            <button>6</button>
-                            <button>7</button>
-                            <button>8</button>
-                            <button>9</button>
-                            <button>10</button>
-                            <button>
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </button>
-
-                        </div>
-
                     </div>
 
                 </div>
-
-                <!-- legenda -->
-                <div class="legend">
-
-                    <div>
-                        <span class="dot green-dot"></span>
-                        Normal: Estoque adequado
-                    </div>
-
-                    <div>
-                        <span class="dot orange-dot"></span>
-                        Baixo: Estoque abaixo do mínimo
-                    </div>
-
-                    <div>
-                        <span class="dot yellow-dot"></span>
-                        Vencendo: vencimento próximo
-                    </div>
-
-                    <div>
-                        <span class="dot red-dot"></span>
-                        Crítico: Sem estoque ou negativo
-                    </div>
-
-                </div>
-
+                
             </div>
 
         </main>

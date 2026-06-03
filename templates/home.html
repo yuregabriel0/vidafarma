@@ -142,9 +142,8 @@
 
                         <h2><h2>{{ total_produtos }}</h2>
 
-                        <p>Total de produtos ativos</p>
 
-                        <a href="#">+ Ver todos</a>
+                        <a href="{% url 'produtos' %}">+ Ver todos</a>
 
                     </div>
 
@@ -158,10 +157,7 @@
                         <h3>Lotes Ativos</h3>
 
                         <h2>{{ total_lotes }}</h2>
-
-                        <p>Lotes em estoque</p>
-
-                        <a href="#">+ Ver todos</a>
+                        <a href="{% url 'controle' %}">+ Ver todos</a>
 
                     </div>
 
@@ -175,10 +171,7 @@
                         <h3>Estoque Baixo</h3>
 
                         <h2>{{ estoque_baixo }}</h2>
-
-                        <p>Produtos abaixo do mínimo</p>
-
-                        <a href="#">+ Ver todos</a>
+                        <a href="{% url 'estoque' %}">+ Ver todos</a>
 
                     </div>
 
@@ -190,12 +183,9 @@
                         </div>
 
                         <h3>Vencem em 30 dias</h3>
-
                         <h2>{{ vencem_30_dias }}</h2>
 
-                        <p>Lotes próximos do vencimento</p>
-
-                        <a href="#">+ Ver todos</a>
+                        <a href="{% url 'controle' %}">+ Ver todos</a>
 
                     </div>
 
