@@ -17,14 +17,16 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from .views import (
-    login_view,
+from usuarios.views import login_view
+from usuarios.views import logout_view
+
+from produtos.views import produtos_view
+
+from estoque.views import (
     home_view,
-    produtos_view,
     estoque_view,
     controle_view,
-    movimentacoes_view,
-    logout_view
+    movimentacoes_view
 )
 
 
