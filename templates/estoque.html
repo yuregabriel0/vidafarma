@@ -170,57 +170,62 @@
 
 </div>
 
-                <!-- tabela -->
-                <div class="table-section">
+              <!-- tabela -->
+<div class="table-section">
 
-                    <!-- filtros -->
-                    <div class="table-filters">
+    <!-- filtros -->
+    <div class="table-filters">
 
-                        <div class="search-box">
+        <div class="search-box">
 
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                                    
-                                <form method="GET" id="formPesquisa">
-                                
-                                    <input
-                                        type="text"
-                                        name="pesquisa"
-                                        placeholder="Buscar produto, lote ou código..."
-                                        value="{{ request.GET.pesquisa }}">
-                                
-                                </form>
-                        </div>
-                                <form method="GET">
+            <i class="fa-solid fa-magnifying-glass"></i>
 
-    <select
-        name="categoria_filtro"
-        onchange="this.form.submit()">
+            <form method="GET" id="formPesquisa">
 
-        <option value="">
-            Todas Categorias
-        </option>
+                <input
+                    type="text"
+                    name="pesquisa"
+                    placeholder="Buscar produto, lote ou código..."
+                    value="{{ request.GET.pesquisa }}">
 
-        {% for categoria in categorias %}
+            </form>
 
-        <option
-            value="{{ categoria.id_categoria }}"
+        </div>
 
-            {% if request.GET.categoria_filtro == categoria.id_categoria|stringformat:"s" %}
-            selected
-            {% endif %}>
+        <div class="filter-group">
 
-            {{ categoria.nome_cat }}
+            <form method="GET">
 
-        </option>
+                <select
+                    name="categoria_filtro"
+                    onchange="this.form.submit()">
 
-        {% endfor %}
+                    <option value="">
+                        Todas Categorias
+                    </option>
 
-    </select>
+                    {% for categoria in categorias %}
 
-</form>
+                    <option
+                        value="{{ categoria.id_categoria }}"
 
-                    </div>
-                        
+                        {% if request.GET.categoria_filtro == categoria.id_categoria|stringformat:"s" %}
+                        selected
+                        {% endif %}>
+
+                        {{ categoria.nome_cat }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </form>
+
+        </div>
+
+    </div>
                     <!-- tabela -->
                     <table>
 
@@ -241,43 +246,55 @@
 
                         </thead>
 
-                        <tbody>
+<tbody>
 
-    {% for lote in lotes %}
+    {% for produto in produtos %}
 
     <tr>
 
-        <td>{{ lote.produto.cod_prod }}</td>
+        <td>{{ produto.cod_prod }}</td>
 
         <td>
-
             <div class="product-info">
-
-                <strong>{{ lote.produto.nom_produto }}</strong>
-
+                <strong>{{ produto.nom_produto }}</strong>
             </div>
-
         </td>
 
         <td>
             <span class="badge blue-badge">
-                {{ lote.produto.categoria.nome_cat }}
+                {{ produto.categoria.nome_cat }}
             </span>
         </td>
 
-        <td>{{ lote.id_lote }}</td>
+        <td>
+            {% with lote=produto.lote_set.first %}
+                {% if lote %}
+                    {{ lote.id_lote }}
+                {% else %}
+                    Sem lote
+                {% endif %}
+            {% endwith %}
+        </td>
 
-        <td>{{ lote.validade|date:"d/m/Y" }}</td>
+        <td>
+            {% with lote=produto.lote_set.first %}
+                {% if lote %}
+                    {{ lote.validade|date:"d/m/Y" }}
+                {% else %}
+                    -
+                {% endif %}
+            {% endwith %}
+        </td>
 
         <td class="stock blue-stock">
-            {{ lote.qtd_item }}
+            {{ produto.qtd_est }}
         </td>
 
         <td>Caixa</td>
 
         <td>
             <span class="preco">
-                R$ {{ lote.produto.preco }}
+                R$ {{ produto.preco }}
             </span>
         </td>
 
@@ -286,20 +303,40 @@
     {% empty %}
 
     <tr>
-
         <td colspan="8">
-            Nenhum lote cadastrado no estoque.
+            Nenhum produto encontrado.
         </td>
-
     </tr>
 
     {% endfor %}
 
 </tbody>
-                    </table>
+            </table>
+                    <div class="pagination">
 
-                    
+    {% if produtos.has_previous %}
+        <a href="?page={{ produtos.previous_page_number }}">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+    {% endif %}
 
+    {% for num in produtos.paginator.page_range %}
+
+        {% if produtos.number == num %}
+            <span class="active-page">{{ num }}</span>
+        {% else %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+
+    {% endfor %}
+
+    {% if produtos.has_next %}
+        <a href="?page={{ produtos.next_page_number }}">
+            <i class="fa-solid fa-chevron-right"></i>
+        </a>
+    {% endif %}
+
+</div>
                     <!-- rodapé -->
                     <div class="table-footer">
 
@@ -311,7 +348,24 @@
 
         </main>
 
-    </div>
+</div>
+        <script>
+        
+        document.querySelector(
+            'input[name="pesquisa"]'
+        ).addEventListener("keyup", function(event){
+        
+            if(event.key === "Enter"){
+            
+                document.getElementById(
+                    "formPesquisa"
+                ).submit();
+            
+            }
+        
+        });
+
+</script>
 
 </body>
 </html>

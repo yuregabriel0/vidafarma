@@ -8,6 +8,7 @@ from usuarios.models import Funcionario
 from django.core.paginator import Paginator
 from datetime import date, timedelta
 from django.db.models import Q
+from django.contrib import messages
 
 def login_view(request):
 
@@ -41,7 +42,7 @@ def home_view(request):
     if not request.user.is_authenticated:
         return redirect("login")
 
-        hoje = date.today()
+    hoje = date.today()
 
     vencem_30_dias = Lote.objects.filter(
     validade__gte=hoje,
@@ -164,80 +165,57 @@ def estoque_view(request):
     pesquisa = request.GET.get("pesquisa")
 
     categoria_filtro = request.GET.get(
-    "categoria_filtro"
-)    
-    if categoria_filtro:
-
-     lotes = lotes.filter(
-        produto__categoria__id_categoria=
-        categoria_filtro
+        "categoria_filtro"
     )
-
-    lotes = Lote.objects.select_related(
-        "produto",
-        "produto__categoria"
-    ).all()
-
-    if pesquisa:
-
-     lotes = lotes.filter(
-
-        Q(
-            produto__nom_produto__icontains=
-            pesquisa
-        )
-
-        |
-
-        Q(
-            produto__cod_prod__icontains=
-            pesquisa
-        )
-
-        |
-
-        Q(
-            id_lote__icontains=
-            pesquisa
-        )
-
-    )
-
-    categorias = Categoria.objects.all()
 
     produtos = Produto.objects.select_related(
         "categoria"
     ).all()
 
+    if pesquisa:
+
+        produtos = produtos.filter(
+
+            Q(nom_produto__icontains=pesquisa)
+
+            |
+
+            Q(cod_prod__icontains=pesquisa)
+
+            |
+
+            Q(lote__id_lote__icontains=pesquisa)
+
+        ).distinct()
+
+    if categoria_filtro:
+
+        produtos = produtos.filter(
+            categoria__id_categoria=categoria_filtro
+        )
+
     valor_total = sum(
         produto.preco * produto.qtd_est
         for produto in produtos
     )
-    hoje = date.today()
 
     vencem_30_dias = Lote.objects.filter(
-    validade__gte=hoje,
-    validade__lte=hoje + timedelta(days=30)
-).count()
+        validade__gte=date.today(),
+        validade__lte=date.today() + timedelta(days=30)
+    ).count()
 
-    valor_total = sum(
-    produto.preco * produto.qtd_est
-    for produto in produtos
-)
-
-    paginator = Paginator(lotes, 5)
+    paginator = Paginator(produtos, 5)
 
     page = request.GET.get("page")
 
-    lotes = paginator.get_page(page)
+    produtos = paginator.get_page(page)
 
     contexto = {
+        "produtos": produtos,
 
-        "lotes": lotes,
+        "categorias": Categoria.objects.all(),
 
         "total_produtos": Produto.objects.count(),
-
-        "vencem_30_dias": vencem_30_dias,
 
         "valor_total": valor_total,
 
@@ -245,20 +223,12 @@ def estoque_view(request):
             qtd_est__lte=10
         ).count(),
 
-        "produtos_inativos": Produto.objects.filter(
-            qtd_est=0
-        ).count(),
-
-        "categorias": categorias,
+        "vencem_30_dias": vencem_30_dias,
     }
 
-    return render(
-        request,
-        "estoque.html",
-        contexto
-    )
+    return render(request, "estoque.html", contexto)
 
-
+    
 def controle_view(request):
 
     if not request.user.is_authenticated:
@@ -385,10 +355,170 @@ def controle_view(request):
     )
 
 def movimentacoes_view(request):
+
     if not request.user.is_authenticated:
         return redirect("login")
 
-    return render(request, "movimentacoes.html")    
+    pesquisa = request.GET.get("pesquisa")
+
+    funcionario_filtro = request.GET.get(
+        "funcionario_filtro"
+    )
+
+    tipo_filtro = request.GET.get("tipo")
+
+    if request.method == "POST":
+
+        lote = Lote.objects.get(
+            id_lote=request.POST.get("lote")
+        )
+
+        funcionario = Funcionario.objects.get(
+            usuario=request.user
+        )
+
+        quantidade = int(
+            request.POST.get("quantidade")
+        )
+
+        produto = lote.produto
+
+        if request.POST.get("tipo") == "entrada":
+
+            lote.qtd_item += quantidade
+
+            produto.qtd_est += quantidade
+
+        else:
+
+            if quantidade > lote.qtd_item:
+
+                messages.error(
+                    request,
+                    "Quantidade maior que o estoque disponível."
+                )
+
+                return redirect("movimentacoes")
+
+            lote.qtd_item -= quantidade
+
+            produto.qtd_est -= quantidade
+
+        Movimentacao.objects.create(
+
+            tipo=request.POST.get("tipo"),
+
+            motivo=request.POST.get("motivo"),
+
+            data=date.today(),
+
+            quantidade=quantidade,
+
+            lote=lote,
+
+            funcionario=funcionario
+        )
+
+        lote.save()
+
+        produto.save()
+
+        return redirect("movimentacoes")
+
+    movimentacoes = Movimentacao.objects.select_related(
+        "lote",
+        "lote__produto",
+        "funcionario"
+    ).order_by(
+        "-data",
+        "-id_movimentacao"
+    )
+
+    if pesquisa:
+
+        movimentacoes = movimentacoes.filter(
+
+            Q(
+                lote__produto__nom_produto__icontains=pesquisa
+            )
+
+            |
+
+            Q(
+                lote__id_lote__icontains=pesquisa
+            )
+
+            |
+
+            Q(
+                motivo__icontains=pesquisa
+            )
+
+            |
+
+            Q(
+                data__icontains=pesquisa
+            )
+
+        )
+
+    if funcionario_filtro:
+
+        movimentacoes = movimentacoes.filter(
+            funcionario__matricula=
+            funcionario_filtro
+        )
+
+    if tipo_filtro == "entrada":
+
+        movimentacoes = movimentacoes.filter(
+            tipo="entrada"
+        )
+
+    elif tipo_filtro == "saida":
+
+        movimentacoes = movimentacoes.filter(
+            tipo="saida"
+        )
+
+    valor_movimentado = sum(
+        mov.lote.produto.preco * mov.quantidade
+        for mov in movimentacoes
+    )
+
+    contexto = {
+
+        "movimentacoes": movimentacoes,
+
+        "lotes": Lote.objects.select_related(
+            "produto"
+        ).all(),
+
+        "funcionarios":
+        Funcionario.objects.all(),
+
+        "total_entradas":
+        Movimentacao.objects.filter(
+            tipo="entrada"
+        ).count(),
+
+        "total_saidas":
+        Movimentacao.objects.filter(
+            tipo="saida"
+        ).count(),
+
+        "total_movimentacoes":
+        Movimentacao.objects.count(),
+
+        "valor_movimentado":
+        valor_movimentado,
+    }
+
+    return render(
+        request,
+        "movimentacoes.html",
+        contexto
+    )
 
 def logout_view(request):
 

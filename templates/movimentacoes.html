@@ -101,18 +101,171 @@
             </header>
 
             <!-- dashboard -->
-            <div class="dashboard">
+<div class="dashboard">
 
-                <!-- título -->
-                <div class="page-title">
+    <!-- título + botão -->
+    <div class="page-header">
 
-                    <h1>Movimentações</h1>
+    <div>
 
-                    <p>
-                        Controle completo das entradas, saídas e ajustes
-                    </p>
+        <h1>Movimentações</h1>
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alerta">
+
+                    {{ message }}
 
                 </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+
+    <button
+        class="new-product-btn"
+        onclick="abrirPainelMovimentacao()">
+
+        <i class="fa-solid fa-plus"></i>
+        Realizar Movimentação
+
+    </button>
+
+</div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="painel-movimentacao" id="painelMovimentacao">
+
+        <h2>Nova Movimentação</h2>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+
+                <label>Lote</label>
+
+                <select name="lote" required>
+
+                    {% for lote in lotes %}
+
+                    <option value="{{ lote.id_lote }}">
+
+                        {{ lote.id_lote }} -
+                        {{ lote.produto.nom_produto }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Tipo</label>
+
+                <select name="tipo" required>
+
+                    <option value="entrada">
+                        Entrada
+                    </option>
+
+                    <option value="saida">
+                        Saída
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Motivo</label>
+
+                <select name="motivo" required>
+
+                    <option value="reposicao">
+                        Reposição
+                    </option>
+
+                    <option value="venda">
+                        Venda
+                    </option>
+
+                    <option value="devolucao">
+                        Devolução
+                    </option>
+
+                    <option value="vencido">
+                        Produto Vencido
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Quantidade</label>
+
+                <input
+                    type="number"
+                    name="quantidade"
+                    min="1"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Funcionário</label>
+
+                <input
+                    type="text"
+                    value="{{ request.user.funcionario.nome }} {{ request.user.funcionario.sobrenome }}"
+                    readonly>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Data</label>
+
+                <input
+                    type="text"
+                    value="{% now 'd/m/Y' %}"
+                    readonly>
+
+            </div>
+
+            <div class="botoes-form">
+
+                <button
+                    type="button"
+                    onclick="fecharPainelMovimentacao()">
+
+                    Cancelar
+
+                </button>
+
+                <button type="submit">
+
+                    Salvar Movimentação
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
 
                 <!-- cards -->
                 <div class="cards">
@@ -124,10 +277,7 @@
                         </div>
 
                         <h3>Total de Entradas</h3>
-                        <h2>0</h2>
-
-                        <p>Entradas realizadas no sistema</p>
-
+                        <h2>{{ total_entradas }}</h2>
                     </div>
 
                     <div class="card">
@@ -137,9 +287,7 @@
                         </div>
 
                         <h3>Total de Saídas</h3>
-                        <h2>0</h2>
-
-                        <p>Saídas registradas</p>
+                        <h2>{{ total_saidas }}</h2>
 
                     </div>
 
@@ -149,10 +297,8 @@
                             <i class="fa-solid fa-pen"></i>
                         </div>
 
-                        <h3>Ajustes</h3>
-                        <h2>0</h2>
-
-                        <p>Ajustes manuais realizados</p>
+                        <h3>Total Movimentações</h3>
+                        <h2>{{ total_movimentacoes }}</h2>
 
                     </div>
 
@@ -163,9 +309,7 @@
                         </div>
 
                         <h3>Valor Movimentado</h3>
-                        <h2>R$ 128.450,80</h2>
-
-                        <p>Total movimentado</p>
+                        <h2>R$ {{ valor_movimentado }}</h2>
 
                     </div>
 
@@ -174,59 +318,77 @@
                 <!-- tabela -->
                 <div class="table-section">
 
-                    <!-- filtros -->
-                    <div class="table-filters">
+                <div class="table-filters">
 
-                        <div class="search-box">
+             <div class="search-box">
 
-                            <i class="fa-solid fa-magnifying-glass"></i>
+                 <i class="fa-solid fa-magnifying-glass"></i>
 
-                            <input type="text" placeholder="Buscar movimentação...">
+                 <form method="GET" id="formPesquisa">
 
-                        </div>
+                     <input
+                         type="text"
+                         name="pesquisa"
+                         placeholder="Buscar por data, produto, motivo ou lote..."
+                         value="{{ request.GET.pesquisa }}">
 
-                        <div class="filter-group">
+                 </form>
+             
+             </div>
+         
+             <div class="filter-group">
 
-                            <select>
-                                <option>Todos</option>
-                            </select>
+                 <form method="GET">
 
-                            <input type="date">
+                     <select
+                         name="funcionario_filtro"
+                         onchange="this.form.submit()">
 
-                            <input type="date">
+                         <option value="">
+                             Todos Funcionários
+                         </option>
+                     
+                         {% for funcionario in funcionarios %}
+                     
+                         <option
+                             value="{{ funcionario.matricula }}"
+                     
+                             {% if request.GET.funcionario_filtro == funcionario.matricula %}
+                             selected
+                             {% endif %}>
+                     
+                             {{ funcionario.nome }}
+                             {{ funcionario.sobrenome }}
+                     
+                         </option>
+                     
+                         {% endfor %}
+                     
+                     </select>
+                 
+                 </form>
+             
+             </div>
 
-                            <button class="filter-btn">
+        </div>
 
-                                <i class="fa-solid fa-filter"></i>
-                                Filtros
+    </div>
 
-                            </button>
+            <div class="tabs">
 
-                        </div>
-
-                    </div>
-
-                    <!-- tabs -->
-                    <div class="tabs">
-
-                        <button class="tab-btn active">
-                            Todas
-                        </button>
-
-                        <button class="tab-btn">
-                            Entradas
-                        </button>
-
-                        <button class="tab-btn">
-                            Saídas
-                        </button>
-
-                        <button class="tab-btn">
-                            Ajustes
-                        </button>
-
-                    </div>
-
+                <a href="{% url 'movimentacoes' %}" class="tab-btn">
+                    Todas
+                </a>
+            
+                <a href="?tipo=entrada" class="tab-btn">
+                    Entradas
+                </a>
+            
+                <a href="?tipo=saida" class="tab-btn">
+                    Saídas
+                </a>
+            
+            </div>
                     <!-- tabela -->
                     <table>
 
@@ -241,7 +403,7 @@
                                 <th>Quantidade</th>
                                 <th>Usuário</th>
                                 <th>Motivo</th>
-                                <th>Ações</th>
+                                
 
                             </tr>
 
@@ -249,120 +411,84 @@
 
                         <tbody>
 
-                            <tr>
+    {% for mov in movimentacoes %}
 
-                                <td>16/05/2026</td>
+    <tr>
 
-                                <td>
-                                    <span class="type entry-type">
-                                        Entrada
-                                    </span>
-                                </td>
+        <td>
+            {{ mov.data|date:"d/m/Y" }}
+        </td>
 
-                                <td>DIPIRONA 1G</td>
+        <td>
 
-                                <td>508090</td>
+            {% if mov.tipo == "entrada" %}
 
-                                <td class="green-text">
-                                    +200
-                                </td>
+                <span class="badge green-badge">
+                    Entrada
+                </span>
 
-                                <td>George Henrique</td>
+            {% else %}
 
-                                <td>Reposição</td>
+                <span class="badge red-badge">
+                    Saída
+                </span>
 
-                                <td>
+            {% endif %}
 
-                                    <button class="action-btn">
+        </td>
 
-                                        <i class="fa-solid fa-eye"></i>
+        <td>
+            {{ mov.lote.produto.nom_produto }}
+        </td>
 
-                                    </button>
+        <td>
+            {{ mov.lote.id_lote }}
+        </td>
 
-                                </td>
+        <td>
 
-                            </tr>
+            {% if mov.tipo == "entrada" %}
 
-                            <tr>
+                <span class="green-stock">
+                    +{{ mov.quantidade }}
+                </span>
 
-                                <td>15/05/2026</td>
+            {% else %}
 
-                                <td>
-                                    <span class="type exit-type">
-                                        Saída
-                                    </span>
-                                </td>
+                <span class="red-stock">
+                    -{{ mov.quantidade }}
+                </span>
 
-                                <td>AMOXICILINA 500MG</td>
+            {% endif %}
 
-                                <td>369874</td>
+        </td>
 
-                                <td class="red-text">
-                                    -50
-                                </td>
+        <td>
+            {{ mov.funcionario.nome }}
+            {{ mov.funcionario.sobrenome }}
+        </td>
 
-                                <td>Ana Paula</td>
+        <td>
+            {{ mov.get_motivo_display }}
+        </td>
+    </tr>
 
-                                <td>Venda</td>
+    {% empty %}
 
-                                <td>
+    <tr>
 
-                                    <button class="action-btn">
+        <td colspan="8">
+            Nenhuma movimentação cadastrada.
+        </td>
 
-                                        <i class="fa-solid fa-eye"></i>
+    </tr>
 
-                                    </button>
+    {% endfor %}
 
-                                </td>
+</tbody>
 
-                            </tr>
+</table>
 
-                            <tr>
-
-                                <td>14/05/2026</td>
-
-                                <td>
-                                    <span class="type adjust-type">
-                                        Ajuste
-                                    </span>
-                                </td>
-
-                                <td>RIVOTRIL 0,25MG</td>
-
-                                <td>023165</td>
-
-                                <td class="blue-text">
-                                    +10
-                                </td>
-
-                                <td>Carlos Lima</td>
-
-                                <td>Correção de estoque</td>
-
-                                <td>
-
-                                    <button class="action-btn">
-
-                                        <i class="fa-solid fa-eye"></i>
-
-                                    </button>
-
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
-                    <!-- footer -->
-                    <div class="table-footer">
-
-                        <p>
-                            Mostrando 1 a 3 de 1.250 movimentações
-                        </p>
-
-                    </div>
 
                 </div>
 
@@ -371,6 +497,30 @@
         </main>
 
     </div>
+    <script>
 
+    document.querySelector(
+    'input[name="pesquisa"]'
+).addEventListener("keyup", function(event){
+
+    if(event.key === "Enter"){
+
+        document.getElementById(
+            "formPesquisa"
+        ).submit();
+
+    }
+
+});
+        function abrirPainelMovimentacao() {
+            document.getElementById('painelMovimentacao').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function fecharPainelMovimentacao() {
+            document.getElementById('painelMovimentacao').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
