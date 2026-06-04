@@ -236,19 +236,6 @@ body{
     z-index: 9998;
 }
 
-.painel-produto {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 800px;
-    max-width: 90%;
-    background: #123d74;
-    padding: 30px;
-    border-radius: 16px;
-    z-index: 9999;
-}
 .new-product-btn{
     border: none;
 
@@ -281,7 +268,7 @@ body{
     margin-bottom: 15px;
 }
 
-/* cores */
+
 .azul{
     background-color: #dbeafe;
     color: #2563eb;
@@ -448,86 +435,120 @@ tbody tr{
     color: #9ca3af;
 }
 
-/* estoque */
-.estoque{
-    font-weight: 700;
-}
-
-.azul-estoque{
-    color: #2563eb;
-}
-
-.laranja-estoque{
-    color: #ea580c;
-}
-
-.vermelho-estoque{
-    color: #ef4444;
-}
-
-/* status */
-.status{
-    padding: 6px 10px;
-
-    border-radius: 30px;
-
-    font-size: 11px;
-    font-weight: 600;
-}
-
-/* tipos */
-.status-normal{
-    background-color: #dcfce7;
-    color: #16a34a;
-}
-
-.status-valido{
-    background-color: #dcfce7;
-    color: #16a34a;
-}
-
-.status-vencendo{
-    background-color: #ffedd5;
-    color: #ea580c;
-}
-
-.status-vencido{
-    background-color: #fee2e2;
-    color: #ef4444;
-}
-
-/* ações */
-.acoes{
+.filters{
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
 
-/* botão ação */
-.botao-acao{
-    width: 35px;
-    height: 35px;
+/* select */
+.filters select{
+    height: 45px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+
+    padding: 0 12px;
+
+    outline: none;
+}
+.painel-controle {
+
+    display: none;
+
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 700px;
+    max-width: 90%;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 16px;
+
+    z-index: 9999;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+}
+
+.painel-controle h2 {
+
+    margin-bottom: 25px;
+
+    color: #111827;
+}
+.form-group {
+
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 18px;
+}
+
+.form-group label{
+    margin-bottom: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #374151;
+}
+
+.form-group input,
+.form-group select {
+
+    height: 45px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 10px;
+
+    padding: 0 12px;
+
+    outline: none;
+
+    font-size: 14px;
+}
+
+.botoes-form {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+.botoes-form button {
 
     border: none;
 
-    border-radius: 8px;
+    padding: 12px 18px;
 
-    background-color: #eff6ff;
-    color: #2563eb;
+    border-radius: 10px;
 
     cursor: pointer;
 
-    transition: 0.3s;
+    font-weight: 600;
 }
 
-/* hover */
-.botao-acao:hover{
-    transform: scale(1.05);
+.botoes-form button[type="button"] {
+
+    background: #e5e7eb;
 }
 
-/* excluir */
-.excluir{
-    background-color: #fef2f2;
-    color: #ef4444;
+.botoes-form button[type="submit"] {
+
+    background: #2563eb;
+
+    color: white;
 }
 .pagination {
     display: flex;
@@ -569,20 +590,4 @@ tbody tr{
     background-color: #2563eb;
     color: white !important;
     border-color: #2563eb !important;
-}
-.filters{
-    display: flex;
-    gap: 10px;
-}
-
-/* select */
-.filters select{
-    height: 45px;
-
-    border: 1px solid #d1d5db;
-    border-radius: 10px;
-
-    padding: 0 12px;
-
-    outline: none;
 }

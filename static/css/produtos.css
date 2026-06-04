@@ -444,7 +444,7 @@ tbody tr {
 
     max-width: 90%;
 
-    background: #123d74;
+    background: #fdfdfd;
 
     padding: 30px;
 
@@ -470,7 +470,81 @@ tbody tr {
 
     z-index: 9998;
 }
+.painel-movimentacao h2 {
 
+    margin-bottom: 25px;
+
+    color: #111827;
+}
+
+.form-group {
+
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 18px;
+}
+
+.form-group label{
+    margin-bottom: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #374151;
+}
+
+.form-group input,
+.form-group select {
+
+    height: 45px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 10px;
+
+    padding: 0 12px;
+
+    outline: none;
+
+    font-size: 14px;
+}
+
+.botoes-form {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+.botoes-form button {
+
+    border: none;
+
+    padding: 12px 18px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+}
+
+.botoes-form button[type="button"] {
+
+    background: #e5e7eb;
+}
+
+.botoes-form button[type="submit"] {
+
+    background: #2563eb;
+
+    color: white;
+}
 .pagination {
 
     display: flex !important;

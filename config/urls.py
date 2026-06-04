@@ -27,6 +27,7 @@ from .views import (
     logout_view
 )
 
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", login_view, name="login"),
