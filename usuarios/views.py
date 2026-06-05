@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect, render
+
 
 def login_view(request):
 
@@ -10,11 +11,7 @@ def login_view(request):
         matricula = request.POST.get("matricula")
         senha = request.POST.get("senha")
 
-        user = authenticate(
-            request,
-            username=matricula,
-            password=senha
-        )
+        user = authenticate(request, username=matricula, password=senha)
 
         if user is not None:
 
@@ -33,4 +30,4 @@ def logout_view(request):
 
     logout(request)
 
-    return redirect("login") 
+    return redirect("login")

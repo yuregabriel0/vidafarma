@@ -17,18 +17,11 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from usuarios.views import login_view
-from usuarios.views import logout_view
 
+from estoque.views import (controle_view, estoque_view, home_view,
+                           movimentacoes_view)
 from produtos.views import produtos_view
-
-from estoque.views import (
-    home_view,
-    estoque_view,
-    controle_view,
-    movimentacoes_view
-)
-
+from usuarios.views import login_view, logout_view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
