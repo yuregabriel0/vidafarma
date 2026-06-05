@@ -133,7 +133,7 @@ def controle_view(request):
             request.POST.get("qtd_item")
         )
 
-        Lote.objects.create(
+        lote = Lote.objects.create(
 
             id_lote=request.POST.get("id_lote"),
 
@@ -151,6 +151,21 @@ def controle_view(request):
         produto.qtd_est += quantidade
 
         produto.save()
+
+        Movimentacao.objects.create(
+
+            tipo="entrada",
+
+            motivo="reposicao",
+
+            data=date.today(),
+
+            quantidade=quantidade,
+
+            lote=lote,
+
+            funcionario=funcionario
+        )
 
         return redirect("controle")
 
@@ -262,30 +277,22 @@ def movimentacoes_view(request):
 
         produto = lote.produto
 
-        if request.POST.get("tipo") == "entrada":
+        if quantidade > lote.qtd_item:
 
-            lote.qtd_item += quantidade
+            messages.error(
+                request,
+                "Quantidade maior que o estoque disponível."
+            )
 
-            produto.qtd_est += quantidade
+            return redirect("movimentacoes")
 
-        else:
+        lote.qtd_item -= quantidade
 
-            if quantidade > lote.qtd_item:
-
-                messages.error(
-                    request,
-                    "Quantidade maior que o estoque disponível."
-                )
-
-                return redirect("movimentacoes")
-
-            lote.qtd_item -= quantidade
-
-            produto.qtd_est -= quantidade
+        produto.qtd_est -= quantidade
 
         Movimentacao.objects.create(
 
-            tipo=request.POST.get("tipo"),
+            tipo="saida",
 
             motivo=request.POST.get("motivo"),
 
