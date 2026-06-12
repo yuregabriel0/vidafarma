@@ -13,7 +13,7 @@ def produtos_view(request):
     if not request.user.is_authenticated:
         return redirect("login")
 
-    pesquisa = request.GET.get("pesquisa")
+    pesquisa =request.GET.get("pesquisa")
     categoria_filtro = request.GET.get("categoria_filtro")
     status_filtro = request.GET.get("status_filtro")
 

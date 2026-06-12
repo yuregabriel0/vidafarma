@@ -1,40 +1,152 @@
-# 💊 Drogaria VidaFarma 
-
+# 💊 VidaFarma
 
 <p align="center">
   <img src="./assets/logo.png" width="220">
 </p>
 
-Sistema CRUD acadêmico desenvolvido para auxiliar no controle de medicamentos de uma drogaria, permitindo o gerenciamento de produtos, controle de validade e organização do estoque.
+<p align="center">
+Sistema web para gerenciamento farmacêutico desenvolvido com Django, focado no controle de produtos, estoque, lotes e movimentações.
+</p>
 
-Projeto desenvolvido para a disciplina Back-End e Frameworks.
+## 📖 Sobre o Projeto
+
+O **VidaFarma** é uma aplicação web desenvolvida para auxiliar no gerenciamento de uma drogaria, centralizando informações importantes em um único sistema.
+
+O projeto foi criado com o objetivo de proporcionar maior organização e controle operacional, permitindo o acompanhamento de produtos, estoque e movimentações de forma simples e eficiente.
+
+Além de atender aos requisitos acadêmicos da disciplina **Back-End e Frameworks**, o sistema foi projetado simulando cenários reais encontrados em farmácias e drogarias.
+
+
+## 🚀 Funcionalidades
+
+### 🔐 Autenticação
+- Login de funcionários por matrícula e senha
+- Controle de acesso ao sistema
+
+### 💊 Gestão de Produtos
+- Cadastro de produtos
+- Atualização de informações
+- Exclusão de registros
+- Organização por categorias
+
+### 📦 Controle de Estoque
+- Registro de lotes
+- Controle de quantidade disponível
+- Atualização automática do estoque
+
+### 📋 Movimentações
+- Registro de entradas e saídas
+- Histórico de movimentações
+- Associação das operações ao funcionário responsável
+
+### 👥 Gestão de Funcionários
+- Cadastro de colaboradores
+- Controle por matrícula
+- Definição de cargos
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- Python
+- Django
+- Supabase
+- HTML5
+- CSS3
+
+## Estrutura do Sistema
+
+O projeto segue uma arquitetura organizada por responsabilidades:
+
+- **Usuários** → autenticação e funcionários
+- **Produtos** → gerenciamento de medicamentos
+- **Estoque** → controle de lotes e quantidades
+- **Movimentações** → entradas e saídas de produtos
+
+---
+
+## Como Rodar o Projeto
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/seu-usuario/vidafarma.git
+```
+
+### 2. Acesse a pasta do projeto
+
+```bash
+cd vidafarma
+```
+
+### 3. Crie um ambiente virtual
+
+```bash
+python -m venv venv
+```
+
+### 4. Ative o ambiente virtual
+
+**Windows**
+
+```bash
+venv\Scripts\activate
+```
+
+**Linux/MacOS**
+
+```bash
+source venv/bin/activate
+```
+
+### 5. Instale as dependências
+
+```bash
+pip install -r requirements.txt
+```
+
+### 6. Execute as migrações
+
+```bash
+python manage.py migrate
+```
+
+### 7. Inicie o servidor
+
+```bash
+python manage.py runserver
+```
+
+### 8. Acesse o sistema
+
+```text
+http://127.0.0.1:8000/
+```
+
+---
+
+## 🎯 Objetivo Acadêmico
+
+Este projeto foi desenvolvido para aplicar conceitos de:
+
+- Desenvolvimento Back-End
+- Modelagem de Banco de Dados
+- Framework Django
+- Arquitetura MVT
+- Operações CRUD
+- Relacionamentos entre entidades
+- Integração com banco de dados PostgreSQL
+
+---
 
 ## 👨‍💻 Integrantes
-- Gabriel Cristovão
+
+- Gabriel Cristóvão
 - Maria Eduarda
 - Yure Gabriel
 
-## 📌 Sobre o projeto
-O **VidaFarma Drogaria** foi criado com o objetivo de simular um sistema real de gerenciamento farmacêutico, oferecendo funcionalidades essenciais para controle de medicamentos e estoque.
+---
 
-O sistema permite:
+## 📚 Disciplina
 
-- Cadastro de medicamentos
-- Edição de produtos
-- Exclusão de registros
-- Controle de estoque
-- Visualização de medicamentos vencidos
-- Busca de produtos
-- Organização das informações farmacêuticas
-
-Além de ser um CRUD acadêmico, o projeto busca resolver uma necessidade real presente em pequenas drogarias e farmácias.
-
-## 💡 Objetivo acadêmico
-
-Este projeto foi desenvolvido como atividade da disciplina Back-End e Frameworks, com foco na prática de:
-
-- Desenvolvimento Back-End
-- Integração com banco de dados
-- Estruturação de sistemas CRUD
-- Organização de rotas e lógica de negócio
-- Aplicação de frameworks no desenvolvimento web
+Projeto desenvolvido para a disciplina **Back-End e Frameworks**.
