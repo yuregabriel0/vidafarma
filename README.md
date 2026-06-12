@@ -53,6 +53,7 @@ Além de atender aos requisitos acadêmicos da disciplina **Back-End e Framework
 - Supabase
 - HTML5
 - CSS3
+- JavaScript
 
 ## Estrutura do Sistema
 
