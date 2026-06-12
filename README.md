@@ -132,10 +132,8 @@ Este projeto foi desenvolvido para aplicar conceitos de:
 - Desenvolvimento Back-End
 - Modelagem de Banco de Dados
 - Framework Django
-- Arquitetura MVT
 - Operações CRUD
 - Relacionamentos entre entidades
-- Integração com banco de dados PostgreSQL
 
 ---
 
